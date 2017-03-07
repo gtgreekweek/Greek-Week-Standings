@@ -1,13 +1,19 @@
 
 // CONSTANTS
 var fraternitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=32378140&single=true&output=csv"
+var sororitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=360463781&single=true&output=csv"
 
 
 // Load Standings
 
 function loadStandings() {
+    loadStandingsIntoDiv(fraternitiesCSV, $("#fraternities"))
+    loadStandingsIntoDiv(sororitiesCSV, $("#sororities"))
+}
+
+function loadStandingsIntoDiv(csvURL, div) {
     
-    csvArrayFromURL(fraternitiesCSV, function(csv) {
+    csvArrayFromURL(csvURL, function(csv) {
         if (csv == undefined) {
             console.log("could not load CSV")
             return
@@ -22,6 +28,13 @@ function loadStandings() {
         
         console.log(chapters)
         
+        sortedChapters = chapters.sort(function(left, right) {
+            return right.points - left.points
+        })
+        
+        console.log(sortedChapters)
+        
+        renderListOfChaptersInDiv(sortedChapters, div)
     })
     
 }
@@ -53,5 +66,32 @@ function csvArrayFromURL(url, completion) {
         }
     }
     
+}
+
+function renderListOfChaptersInDiv(chapters, div) {
+    var renderedContent = "<table>"
+    
+    for (var i = 0; i < chapters.length; i++) {
+        renderedContent += `
+            <tr>
+                <td>
+                    <table class="chapterNameTable">
+                        <tr>
+                            <td><div class="chapterLetters">${chapters[i].letters}</div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="chapterName">${chapters[i].name}</div></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="chapterPoints"><b>${chapters[i].points}</b> ${chapters[i].points == 1.0 ? "Point" : "Points"}</div>
+                </td>
+            </tr>
+        `
+    }
+    
+    renderedContent += "</table>"
+    div.html(renderedContent)
 }
 

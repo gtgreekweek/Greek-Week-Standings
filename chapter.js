@@ -5,14 +5,21 @@ function Chapter(index, csv) {
     this.pointCategories = []
     
     chapterRow = csv[index]
-    this.name = chapterRow[1] //name is in second column
+    
+    this.points = parseFloat(chapterRow[0])
+    if (this.points == undefined) {
+        this.points = 0
+    }
+    
+    this.name = chapterRow[1]
+    this.letters = chapterRow[2]
     
     //load all point categories
     categoryRow = csv[0]
     itemRow = csv[1]
     var currentCategory = undefined
 
-    for (var column = 2; column < chapterRow.length; column++) {
+    for (var column = 3; column < chapterRow.length; column++) {
         
         //if there is a new category, save the old one and start a new one
         var categoryName = categoryRow[column]

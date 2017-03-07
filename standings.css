@@ -1,0 +1,32 @@
+body {
+    background-color: gainsboro;
+}
+
+.sheet {
+    background-color: white;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.chapterNameTable {
+    display: inline;
+    padding-bottom: 10px;
+}
+
+.chapterLetters {
+    font-size: 30;
+    width: 100%;
+    margin-bottom: -5px;
+}
+
+.chapterName {
+    font-family: sans-serif;
+}
+
+.chapterPoints {
+    font-size: 20;
+    font-family: sans-serif;
+    display: inline;
+    padding-left: 10px;
+}
