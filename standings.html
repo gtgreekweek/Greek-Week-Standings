@@ -9,21 +9,21 @@
 
     <body onload="loadStandings()">
         
-        <div class="sheet">
-            <table style="width:100%">
+        <div class="sheet" id="standings">
+            <table style="width:100%;" cellpadding="0" cellspacing="0">
                 <td valign="top">
-                    <div id="fraternities"></div>
+                    <div class="header" id="fratHeader">Fraternities</div>
+                    <div id="fraternities"><div style="font-family:sans-serif; padding:40px;">Loading...</div></div>
                 </td>
                 <td valign="top">
+                    <div class="header" id="sratHeader">Sororities</div>
                     <div id="sororities"></div>
                 </td>
             </table>
         </div>
         
-        
-    
-        
-        
+        <div class="sheet" id="chapterPoints" style="display: none;">
+        </div>
         
     </body>
     

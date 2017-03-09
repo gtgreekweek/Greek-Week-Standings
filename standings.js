@@ -69,11 +69,11 @@ function csvArrayFromURL(url, completion) {
 }
 
 function renderListOfChaptersInDiv(chapters, div) {
-    var renderedContent = "<table>"
+    var renderedContent = "<table class='contentTable'>"
     
     for (var i = 0; i < chapters.length; i++) {
         renderedContent += `
-            <tr>
+            <tr class='contentRow'>
                 <td>
                     <table class="chapterNameTable">
                         <tr>

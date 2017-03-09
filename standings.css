@@ -5,13 +5,41 @@ body {
 .sheet {
     background-color: white;
     max-width: 800px;
-    padding: 20px;
+    padding-bottom: 20px;
     margin: 0 auto;
+}
+
+
+/* Overall Standings */
+
+.header {
+    width: 100%;
+    text-align: center;
+    font-size: 30;
+    font-family: Georgia;
+    font-weight: 600;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+#fratHeader {
+    color: rgb(16,80,148);
+}
+
+#sratHeader {
+    color: rgb(206, 155, 16);
+}
+
+.placeRow: {
+    width: 100%;
+    text-align: center;
 }
 
 .chapterNameTable {
     display: inline;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
 }
 
 .chapterLetters {
@@ -29,4 +57,21 @@ body {
     font-family: sans-serif;
     display: inline;
     padding-left: 10px;
+    padding-right: 10px;
 }
+
+.contentTable {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#fraternities .contentRow:nth-child(even) {
+    background-color: rgb(239, 246, 255);
+}
+
+#sororities .contentRow:nth-child(even) {
+    background-color: rgb(255, 250, 232);
+}
+
+
+/* Individual Chapter */
