@@ -1,3 +1,46 @@
+var loadedChapters = {}
+
+
+//completion is a ([Chapter]) -> (). Calls with `undefined` is there was an error.
+function getChaptersArray(classification, completion) {
+    
+    if (loadedChapters[classification] != undefined) {
+        completion(loadedChapters[classification])
+        return
+    }
+    
+    url = (classification == fraternity) ? fraternitiesCSV : sororitiesCSV
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.send();
+ 
+    xhr.onreadystatechange = function processRequest(e) {
+        if (xhr.readyState == 4 /* 4 = DONE LOADING */ ) {
+            
+            if (xhr.status != 200 /* 200 = SUCCESS */ ) {
+                completion(undefined)
+                return
+            }
+            
+            var csvArray = xhr.responseText.split("\r\n").map(function(line) {
+                return line.split(",")
+            })
+            
+            var chapters = []
+            var chapterCount = csvArray.length - 2 //2 header rows
+
+            for (var i = 0; i < chapterCount; i++) {
+                chapters.push(new Chapter(i + 2, csvArray))
+            }
+            
+            loadedChapters[classification] = chapters
+            completion(chapters) 
+        }
+    }
+    
+}
+
 
 function Chapter(index, csv) {
     
@@ -31,7 +74,10 @@ function Chapter(index, csv) {
             
             currentCategory = {
                 name: categoryName,
-                items: []
+                items: [],
+                totalPoints: function() {
+                    return items.reduce(function(total, item) { return total + item.points })
+                }
             }
         }
         
