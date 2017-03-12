@@ -1,11 +1,10 @@
 
 body {
-    background-color: gainsboro;
+    background-color: white;
 }
 
 .sheet {
     background-color: white;
-    max-width: 800px;
     padding-bottom: 20px;
     margin: 0 auto;
 }
@@ -25,11 +24,11 @@ body {
     padding-bottom: 20px;
 }
 
-#fratHeader {
+.fratHeader {
     color: rgb(16,80,148);
 }
 
-#sratHeader {
+.sratHeader {
     color: rgb(206, 155, 16);
 }
 
@@ -111,7 +110,8 @@ body {
     font-size: 25;
     text-align: left;
     font-family: sans-serif;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
+    padding-top: 10px;
 }
 
 #chapterEventsTable {

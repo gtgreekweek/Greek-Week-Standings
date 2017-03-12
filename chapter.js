@@ -1,3 +1,10 @@
+// CONSTANTS
+var fraternitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=32378140&single=true&output=csv"
+var sororitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=360463781&single=true&output=csv"
+
+var fraternity = "frat"
+var sorority = "srat"
+
 var loadedChapters = {}
 
 
@@ -99,10 +106,53 @@ function Chapter(index, csv) {
             points: itemPoints
         })
     }
+    
+    
+    //helper functions
+    
+    this.nameNoSpaces = function() {
+        var name = this.name
+        
+        while(name.includes(" ")) {
+            name = name.replace(" ", "")
+        }
+        
+        return name
+    }
+    
+    this.placeStringFromArray = function(chaptersArray) {
+        
+        var sortedChapters = chaptersArray.sort(function(left, right) {
+            return right.points - left.points
+        })
+
+        console.log(sortedChapters)
+        
+        var placeNumber = sortedChapters.indexOf(this) + 1
+        var placeWithSuffix = ordinal_suffix_of(placeNumber)
+        
+        return `${placeWithSuffix} Place`
+    }
 }
 
 
-//i like this
+//helper functions
+
 String.prototype.isEmpty = function() {
     return (this.length === 0 || !this.trim());
-};
+}
+
+function ordinal_suffix_of(i) {
+    var j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}

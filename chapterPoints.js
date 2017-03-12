@@ -1,35 +1,57 @@
+function abort() {
+    window.location = "standings.html";
+}
 
-function showPointsForChapterAtRow(chapterRow, classification) {
 
+function loadPointsForChapter() {
+    
+    //parse query parameters
+    var chapterName = undefined
+    var classification = undefined
+    
+    var fraternityName = getParameterByName("f")
+    var sororityName = getParameterByName("s")
+    
+    if (fraternityName != undefined) {
+        chapterName = fraternityName
+        classification = fraternity
+    } else if (sororityName != undefined) {
+        chapterName = sororityName
+        classification = sorority
+    } else {
+        abort()
+        return
+    }
+    
+    //load data for chapter
     getChaptersArray(classification, function(chapters) {
         
         if (chapters == undefined) {
+            abort()
             return
         }
         
         chapter = undefined
         for (var i = 0; i < chapters.length; i++) {
-            if (chapters[i].rowIndex == chapterRow) {
+            if (chapters[i].nameNoSpaces() == chapterName) {
                 chapter = chapters[i]
                 break
             }
         }
         
         if (chapter == undefined) {
+            abort()
             return
         }
         
-        console.log(chapter.name)
-        
-        $("#standings").css("display", "none")
-        $("#chapterPoints").css("display", "")
-        
         var pageBody = ` 
             <div id='${"events-" + classification}' style="margin: 0 auto;">
-                <div id="bigChapterLetters">${chapter.letters}</div>
+                <div class='${classification}Header' id="bigChapterLetters">${chapter.letters}</div>
                 <div id="bigChapterName">${chapter.name}</div>
                 <div id="bigChapterPoints">
-                    <b>???th Place</b>
+                    <span class='${classification}Header'>
+                        <b>${chapter.placeStringFromArray(chapters)}</b>
+                    </span>
                     <br>
                     ${chapter.points} ${(chapter.points == 1) ? "Point" : "Total Points"}
                 </div>
@@ -71,7 +93,7 @@ function showPointsForChapterAtRow(chapterRow, classification) {
 }
 
 
-//where the magic happens
+//helper functions
 
 function arrayToHTML(array, map) {
     return array.map(map).reduce(function(content, newString) { 
@@ -83,4 +105,17 @@ function arrayToHTML(array, map) {
         }
 
     })
+}
+
+function getParameterByName(name) {
+
+    url = window.location.href
+    name = name.replace(/[\[\]]/g, "\\$&")
+    
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+    var results = regex.exec(url)
+    
+    if (!results) return undefined
+    if (!results[2]) return undefined
+    return results[2].replace(/\+/g, " ")//decodeURIComponent(results[2].replace(/\+/g, " "));
 }

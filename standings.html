@@ -3,7 +3,6 @@
         <meta charset="utf8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="standings.js"></script>
-        <script type="text/javascript" src="chapterPoints.js"></script>
         <script type="text/javascript" src="chapter.js"></script>
         <link rel="stylesheet" type="text/css" href="standings.css">
     </head>
@@ -13,46 +12,14 @@
         <div class="sheet" id="standings">
             <table style="width:100%;" cellpadding="0" cellspacing="0">
                 <td valign="top">
-                    <div class="header" id="fratHeader">Fraternities</div>
+                    <div class="header fratHeader">Fraternities</div>
                     <div id="fraternities"><div style="font-family:sans-serif; padding:40px;">Loading...</div></div>
                 </td>
                 <td valign="top">
-                    <div class="header" id="sratHeader">Sororities</div>
+                    <div class="header sratHeader">Sororities</div>
                     <div id="sororities"></div>
                 </td>
             </table>
-        </div>
-        
-        <div class="sheet" id="chapterPoints" style="display: none;">
-            <div style="margin: 0 auto;">
-                <div id="bigChapterLetters">TKE</div>
-                <div id="bigChapterName">Tau Kappa Epsilon</div>
-                <div id="bigChapterPoints"><b>5th Place</b><br>105 Total Points</div>
-                <div id="chapterEvents">
-                    <div id="chapterEventsTitle"><b>Events</b></div>
-                    <table id="chapterEventsTable">
-                        <tr>
-                            <td>
-                                <div class="chapterEventName"><b>Volleyball</b></div>
-                                <table class="chapterEvent">
-                                    <tr>
-                                        <td class="chapterPointName">Spectators</td>
-                                        <td class="chapterPointValue"><b>1 point</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chapterPointName">Participation</td>
-                                        <td class="chapterPointValue"><b>2 points</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chapterPointName">Placement</td>
-                                        <td class="chapterPointValue"><b>5 points</b></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
         
     </body>
