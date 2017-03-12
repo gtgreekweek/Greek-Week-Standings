@@ -19,7 +19,7 @@ function getChaptersArray(classification, completion) {
     url = (classification == fraternity) ? fraternitiesCSV : sororitiesCSV
     
     Tabletop.init( { key: url,
-                     simpleSheet: true,
+                     simpleSheet: false,
                      callback: function(data, tabletop) {
                          
                          console.log(data);
