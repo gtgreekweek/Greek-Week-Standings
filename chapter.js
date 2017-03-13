@@ -1,6 +1,6 @@
 // CONSTANTS
-var fraternitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=32378140&single=true&output=csv"
-var sororitiesCSV = "https://docs.google.com/spreadsheets/d/1ec27H8thNdeJ8AVgzaJoIhxK-CYiYdNP_J1VIiLar1g/pub?gid=360463781&single=true&output=csv"
+var fraternitiesCSV = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=32378140&single=true&output=csv"
+var sororitiesCSV = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=360463781&single=true&output=csv"
 
 var fraternity = "frat"
 var sorority = "srat"
@@ -18,46 +18,51 @@ function getChaptersArray(classification, completion) {
     
     url = (classification == fraternity) ? fraternitiesCSV : sororitiesCSV
     
-    Tabletop.init( { key: url,
-                     simpleSheet: false,
-                     callback: function(data, tabletop) {
-                         
-                         console.log(data);
-                         
-                     },
-                      } )
-    
-    return
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.send();
- 
-    xhr.onreadystatechange = function processRequest(e) {
-        if (xhr.readyState == 4 /* 4 = DONE LOADING */ ) {
-            
-            if (xhr.status != 200 /* 200 = SUCCESS */ ) {
-                completion(undefined)
-                return
-            }
-            
-            var csvArray = xhr.responseText.split("\r\n").map(function(line) {
-                return line.split(",")
-            })
-            
-            var chapters = []
-            var chapterCount = csvArray.length - 2 //2 header rows
-
-            for (var i = 0; i < chapterCount; i++) {
-                chapters.push(new Chapter(i + 2, csvArray))
-            }
-            
-            loadedChapters[classification] = chapters
-            completion(chapters) 
-        }
-    }
-    
+    Tabletop.init( 
+        { key: url,
+          simpleSheet: false,
+          callback: function(data, tabletop) {
+              sheet = data[(classification == fraternity ? "Fraternity" : "Sorority")]
+              decomposeTabletopIntoBasicArray(sheet, classification, completion)
+          },
+        } )
 }
+    
+function decomposeTabletopIntoBasicArray(data, classification, callback) {
+    
+    console.log(data)
+    
+    var arrays = data.elements.map(function(object) {
+        
+        var array = []
+        var count = Object.keys(object).length
+        
+        
+        for (var i = 0; i < count; i++) {
+            array.push(object[i])
+        }
+        
+        return array
+    })
+    
+    parseBasicArray(arrays, classification, callback)
+}
+    
+function parseBasicArray(array, classification, callback) {
+
+    var chapters = []
+    var chapterCount = array.length - 2 //2 header rows
+
+    for (var i = 0; i < chapterCount; i++) {
+        chapters.push(new Chapter(i + 2, array))
+    }
+
+    loadedChapters[classification] = chapters
+    callback(chapters) 
+}
+
+
+// Chapter Object
 
 
 function Chapter(index, csv) {
