@@ -1,38 +1,28 @@
 // CONSTANTS
-var fraternitiesCSV = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=32378140&single=true&output=csv"
-var sororitiesCSV = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=360463781&single=true&output=csv"
+var dataDocument = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=32378140&single=true&output=csv"
 
 var fraternity = "frat"
 var sorority = "srat"
 
-var loadedChapters = {}
 
-
-//completion is a ([Chapter]) -> (). Calls with `undefined` is there was an error.
-function getChaptersArray(classification, completion) {
-    
-    if (loadedChapters[classification] != undefined) {
-        completion(loadedChapters[classification])
-        return
-    }
-    
-    url = (classification == fraternity) ? fraternitiesCSV : sororitiesCSV
-    
+//completion is a ([Chapter], [Chapter]) -> (). Calls with `undefined` is there was an error.
+function getChapterArrays(completion) {
     Tabletop.init( 
-        { key: url,
+        { key: dataDocument,
           simpleSheet: false,
           callback: function(data, tabletop) {
-              sheet = data[(classification == fraternity ? "Fraternity" : "Sorority")]
-              decomposeTabletopIntoBasicArray(sheet, classification, completion)
+              
+              fratData = decomposeTabletopIntoChapterArray(data, fraternity)
+              sratData = decomposeTabletopIntoChapterArray(data, sorority)
+              completion(fratData, sratData)
+              
           },
         } )
 }
     
-function decomposeTabletopIntoBasicArray(data, classification, callback) {
+function decomposeTabletopIntoChapterArray(data, classification) {
     
-    console.log(data)
-    
-    var arrays = data.elements.map(function(object) {
+    var arrays = data[classification == fraternity ? "Fraternity" : "Sorority"].elements.map(function(object) {
         
         var array = []
         var count = Object.keys(object).length
@@ -45,10 +35,10 @@ function decomposeTabletopIntoBasicArray(data, classification, callback) {
         return array
     })
     
-    parseBasicArray(arrays, classification, callback)
+    return parseArraysIntoChapters(arrays)
 }
     
-function parseBasicArray(array, classification, callback) {
+function parseArraysIntoChapters(array) {
 
     var chapters = []
     var chapterCount = array.length - 2 //2 header rows
@@ -56,10 +46,11 @@ function parseBasicArray(array, classification, callback) {
     for (var i = 0; i < chapterCount; i++) {
         chapters.push(new Chapter(i + 2, array))
     }
-
-    loadedChapters[classification] = chapters
-    callback(chapters) 
+    
+    return chapters
 }
+
+
 
 
 // Chapter Object

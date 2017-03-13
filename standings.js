@@ -3,24 +3,20 @@
 
 function loadStandings() {
     //showPointsForChapterAtRow(10, fraternity)
-    loadStandingsIntoDiv(fraternity, $("#fraternities"))
-    loadStandingsIntoDiv(sorority, $("#sororities"))
-}
-
-function loadStandingsIntoDiv(classification, div) {
     
-    getChaptersArray(classification, function(chapters) {
-        
-        var sortedChapters = chapters.sort(function(left, right) {
-            return right.points - left.points
-        })
-        
-        renderListOfChaptersInDiv(sortedChapters, div, classification)
+    getChapterArrays=(function(fraternities, soririties) {
+        renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
+        renderListOfChaptersInDiv(soririties, $("#sororities"), sorority)      
     })
     
 }
 
 function renderListOfChaptersInDiv(chapters, div, classification) {
+    
+    chapters = chapters.sort(function(left, right) {
+        return right.points - left.points
+    })
+    
     var renderedContent = "<table class='contentTable'>"
     
     for (var i = 0; i < chapters.length; i++) {

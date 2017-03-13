@@ -24,7 +24,9 @@ function loadPointsForChapter() {
     }
     
     //load data for chapter
-    getChaptersArray(classification, function(chapters) {
+    getChapterArrays(function(fraternities, sororities) {
+        
+        chapters = (classification == fraternity) ? fraternities : sororities
         
         if (chapters == undefined) {
             abort()
