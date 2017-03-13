@@ -4,8 +4,7 @@ var dataDocument = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6
 var fraternity = "frat"
 var sorority = "srat"
 
-
-//completion is a ([Chapter], [Chapter]) -> (). Calls with `undefined` is there was an error.
+//uses Tabletop to load chapters from Google Sheets
 function getChapterArrays(completion) {
     Tabletop.init( 
         { key: dataDocument,
@@ -26,7 +25,6 @@ function decomposeTabletopIntoChapterArray(data, classification) {
         
         var array = []
         var count = Object.keys(object).length
-        
         
         for (var i = 0; i < count; i++) {
             array.push(object[i])

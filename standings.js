@@ -4,7 +4,7 @@
 function loadStandings() {
     //showPointsForChapterAtRow(10, fraternity)
     
-    getChapterArrays=(function(fraternities, soririties) {
+    getChapterArrays(function(fraternities, soririties) {
         renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
         renderListOfChaptersInDiv(soririties, $("#sororities"), sorority)      
     })
