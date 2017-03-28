@@ -41,17 +41,23 @@ body {
     display: inline;
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 10px;
+}
+
+table {
+    border-collapse: separate !important;
 }
 
 .chapterLetters {
     font-size: 30;
     width: 100%;
     margin-bottom: -5px;
+    padding-left: 10px;
+    font-family: serif;
 }
 
 .chapterName {
     font-family: sans-serif;
+    padding-left: 10px;
 }
 
 .chapterPoints {
