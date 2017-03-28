@@ -1,9 +1,5 @@
 
-body {
-    background-color: white;
-}
-
-.sheet {
+.mainSheet {
     background-color: white;
     padding-bottom: 20px;
     margin: 0 auto;
@@ -14,7 +10,7 @@ body {
 /* Overall Standings */
 /* ----------------- */
 
-.header {
+.standingsHeader {
     width: 100%;
     text-align: center;
     font-size: 30;
