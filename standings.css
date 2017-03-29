@@ -171,12 +171,12 @@
     font-size: 21;
     margin-left: 15px;
     padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .chapterEvent {
     margin-left: 40px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 .chapterPointName {
@@ -185,7 +185,7 @@
 }
 
 .chapterPointValue {
-    padding-left: 15px;
+    padding-left: 30px;
     padding-bottom: 5px;
     padding-right: 20px;
 }

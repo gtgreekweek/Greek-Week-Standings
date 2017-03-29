@@ -77,8 +77,13 @@ function Chapter(index, csv) {
     for (var column = 3; column < chapterRow.length; column++) {
         
         //if there is a new category, save the old one and start a new one
+        var currentCategoryName = undefined
+        if (currentCategory != undefined) {
+            currentCategoryName = currentCategory.name
+        }
+        
         var categoryName = categoryRow[column]
-        if (!categoryName.isEmpty()) {
+        if (categoryName != currentCategoryName) {
             
             if (currentCategory != undefined) {
                 this.pointCategories.push(currentCategory)
