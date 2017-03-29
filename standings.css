@@ -3,18 +3,7 @@
     background-color: white;
     padding-bottom: 20px;
     margin: 0 auto;
-}
-
-/* ----------------- */
-/* For Weebly's Sake */
-/* ----------------- */
-
-a {
-    color: #546270 !important;
-}
-
-.mainSheet a {
-    color: black !important;
+    max-width: 720px;
 }
 
 
