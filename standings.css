@@ -5,6 +5,10 @@
     margin: 0 auto;
 }
 
+.mainSheet a {
+    color: black;
+}
+
 
 /* ----------------- */
 /* Overall Standings */
@@ -40,11 +44,11 @@
 }
 
 .mainSheet table {
-    border-collapse: separate !important;
+    border-collapse: separate;
 }
 
 .chapterLetters {
-    font-size: 30px !important;
+    font-size: 30px;
     width: 100%;
     margin-bottom: -5px;
     padding-left: 10px;
@@ -54,11 +58,11 @@
 .chapterName {
     font-family: sans-serif;
     padding-left: 10px;
-    font-size: 16px !important;
+    font-size: 16px;
 }
 
 .chapterPoints {
-    font-size: 20px !important;
+    font-size: 20px;
     font-family: sans-serif;
     display: inline;
     padding-left: 10px;
