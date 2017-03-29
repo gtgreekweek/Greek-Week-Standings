@@ -5,8 +5,16 @@
     margin: 0 auto;
 }
 
+/* ----------------- */
+/* For Weebly's Sake */
+/* ----------------- */
+
+a {
+    color: #546270 !important;
+}
+
 .mainSheet a {
-    color: black;
+    color: black !important;
 }
 
 
