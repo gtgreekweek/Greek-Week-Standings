@@ -1,15 +1,46 @@
 
+#backBar {
+    position: fixed;
+    background: white;
+    border-color: lightgray;
+    border-width: 1px;
+    border-style: solid;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+#backBarTitle {
+    font-size: 17px;
+    font-family: sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #666;
+}
+
 .mainSheet {
     background-color: white;
     padding-bottom: 20px;
     margin: 0 auto;
-    max-width: 720px;
+    max-width: 800px;
+    padding-top: 75px;
 }
 
 
 /* ----------------- */
 /* Overall Standings */
 /* ----------------- */
+
+.mainStandingsHeader {
+    width: 100%;
+    text-align: center;
+    font-size: 30;
+    font-weight: 600;
+    color: #333;
+    padding-bottom: 5px;
+}
 
 .standingsHeader {
     width: 100%;
@@ -85,9 +116,9 @@
 /* ------------------ */
 
 #bigChapterLetters {
-    padding-top: 30px;
     font-size: 50;
     text-align: center;
+    font-family: serif;
 }
 
 #bigChapterName {
