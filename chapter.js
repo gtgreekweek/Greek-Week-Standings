@@ -117,6 +117,11 @@ function Chapter(index, csv) {
         })
     }
     
+    //when done, push the last category
+    if (currentCategory != undefined) {
+        this.pointCategories.push(currentCategory)
+    }
+    
     
     //helper functions
     
