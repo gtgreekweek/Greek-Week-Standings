@@ -26,7 +26,7 @@ function loadPointsForChapter() {
     
     //convert 'AlphaChiOmega' to 'Alpha Chi Omega' and update the page's title
     let chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
-    $("title").html(`${chapterNameWithSpaces} - 2017 Points`)
+    $("title").html(`${chapterNameWithSpaces} - Greek Week 2017`)
     
     //load data for chapter
     getChapterArrays(function(fraternities, sororities) {
@@ -111,7 +111,7 @@ function arrayToHTML(array, map) {
             return content + newString
         }
 
-    })
+    }, "")
 }
 
 function getParameterByName(name) {
