@@ -68,8 +68,6 @@
 
 .chapterNameTable {
     display: inline;
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 .mainSheet table {
@@ -101,6 +99,11 @@
 .contentTable {
     margin: 0 auto;
     border-collapse: collapse;
+}
+
+.contentRow > td {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #fraternities .contentRow:nth-child(even) {
@@ -151,8 +154,14 @@
 #chapterEvents {
     padding-top: 30px;
     margin: 0 auto;
-    margin-left: 100px;
-    margin-right: 100px;
+    max-width: 500px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#chapterEvents contentRow > td {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
 }
 
 #chapterEventsTitle {
@@ -165,18 +174,18 @@
 
 #chapterEventsTable {
     font-family: sans-serif;
+    width: 100%;
 }
 
 .chapterEventName {
     font-size: 21;
     margin-left: 15px;
     padding-bottom: 10px;
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .chapterEvent {
     margin-left: 40px;
-    padding-bottom: 20px;
 }
 
 .chapterPointName {
@@ -186,7 +195,6 @@
 
 .chapterPointValue {
     padding-left: 30px;
-    padding-bottom: 5px;
     padding-right: 20px;
 }
 

@@ -1,5 +1,6 @@
+
 function abort() {
-    window.location = "standings.html";
+    window.location = "index.html";
 }
 
 
@@ -22,6 +23,10 @@ function loadPointsForChapter() {
         abort()
         return
     }
+    
+    //convert 'AlphaChiOmega' to 'Alpha Chi Omega' and update the page's title
+    let chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
+    $("title").html(`${chapterNameWithSpaces} - 2017 Points`)
     
     //load data for chapter
     getChapterArrays(function(fraternities, sororities) {
