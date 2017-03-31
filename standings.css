@@ -136,11 +136,11 @@
 }
 
 #sororities .contentRow:nth-child(odd) .disclosureIndicator {
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 #fraternities .contentRow:nth-child(odd) .disclosureIndicator {
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .aBlock {
