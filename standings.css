@@ -78,14 +78,16 @@
     font-size: 30px;
     width: 100%;
     margin-bottom: -2px;
-    padding-left: 10px;
+    padding-left: 15px;
     font-family: serif;
 }
 
 .chapterName {
     font-family: sans-serif;
-    padding-left: 10px;
+    padding-left: 15px;
+    padding-right: 5px;
     font-size: 16px;
+    max-width: 175px;
 }
 
 .chapterPoints {
@@ -125,6 +127,24 @@
 
 .row {
     margin: 0 auto;
+}
+
+.disclosureIndicator {
+    width: 7.5px;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+#sororities .contentRow:nth-child(odd) .disclosureIndicator {
+    opacity: 0.6;
+}
+
+#fraternities .contentRow:nth-child(odd) .disclosureIndicator {
+    opacity: 0.6;
+}
+
+.aBlock {
+    display: block;
 }
 
 

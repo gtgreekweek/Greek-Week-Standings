@@ -25,7 +25,7 @@ function renderListOfChaptersInDiv(chapters, div, classification) {
         renderedContent += `
             <tr class='contentRow'>
                 <td>
-                    <a href="${href}">
+                    <a class="aBlock" href="${href}">
                         <table class="chapterNameTable">
                             <tr>
                                 <td><div class="chapterLetters">${chapters[i].letters}</div></td>
@@ -37,12 +37,17 @@ function renderListOfChaptersInDiv(chapters, div, classification) {
                     </a>
                 </td>
                 <td>
-                    <a href="${href}">
+                    <a class="aBlock" href="${href}">
                         <table>
                         <tr> <td> <div class="chapterPoints">
                             <b>${chapters[i].points}</b> ${chapters[i].points == 1.0 ? "Point" : "Points"}
                         </td> </tr> </div>
                         </table>
+                    </a>
+                </td>
+                <td>
+                    <a class="aBlock" href="${href}">
+                        <img class="disclosureIndicator" src="Disclosure Indicator.png">
                     </a>
                 </td>
             </tr>
