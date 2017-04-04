@@ -108,7 +108,7 @@ function Chapter(index, csv) {
         itemPoints = 0
         
         if (!itemPointsString.isEmpty()) {
-            itemPoints = parseInt(itemPointsString)
+            itemPoints = parseDouble(itemPointsString)
         }
         
         currentCategory.items.push({
