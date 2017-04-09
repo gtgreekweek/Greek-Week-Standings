@@ -43,6 +43,18 @@
     padding-top: 15px;
 }
 
+.mainStandingsSubtitle {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15;
+    font-weight: 400;
+    color: #999;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+
 .standingsHeader {
     width: 100%;
     text-align: center;
