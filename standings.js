@@ -3,25 +3,28 @@
 
 function loadStandings() {
     //showPointsForChapterAtRow(10, fraternity)
-    
+
     getChapterArrays(function(fraternities, soririties) {
         renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
-        renderListOfChaptersInDiv(soririties, $("#sororities"), sorority)      
+        renderListOfChaptersInDiv(soririties, $("#sororities"), sorority)
+        // Events called here for debugging purposes until event page is created
+        var events = generateEventsFromChapters(fraternities, soririties);
+        console.log(events);
     })
-    
+
 }
 
 function renderListOfChaptersInDiv(chapters, div, classification) {
-    
+
     chapters = chapters.sort(function(left, right) {
         return right.points - left.points
     })
-    
+
     var renderedContent = "<table class='contentTable'>"
-    
+
     for (var i = 0; i < chapters.length; i++) {
         var href = `chapter.html?${classification == fraternity ? 'f' : 's'}=${chapters[i].nameNoSpaces()}`
-        
+
         renderedContent += `
             <tr class='contentRow'>
                 <td>
@@ -53,7 +56,7 @@ function renderListOfChaptersInDiv(chapters, div, classification) {
             </tr>
         `
     }
-    
+
     renderedContent += "</table>"
     div.html(renderedContent)
 }
