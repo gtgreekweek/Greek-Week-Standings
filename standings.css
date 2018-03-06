@@ -159,12 +159,20 @@
     display: block;
 }
 
+span.loading {
+    width: 100%;
+    text-align: center;
+}
+
+#pageContent.loading {
+    text-align: center;
+}
 
 /* ------------------ */
 /* Individual Chapter */
 /* ------------------ */
 
-#bigChapterLetters {
+#pageTitle {
     font-size: 50;
     text-align: center;
     font-family: serif;

@@ -16,36 +16,37 @@ function getChapterArrays(completion) {
               completion(fratData, sratData)
               
           },
-        } )
+        }
+    );
 }
     
 function decomposeTabletopIntoChapterArray(data, classification) {
     
     var arrays = data[classification == fraternity ? "Fraternity" : "Sorority"].elements.map(function(object) {
         
-        var array = []
-        var count = Object.keys(object).length
+        var array = [];
+        var count = Object.keys(object).length;
         
         for (var i = 0; i < count; i++) {
-            array.push(object[i])
+            array.push(object[i]);
         }
         
-        return array
-    })
+        return array;
+    });
     
-    return parseArraysIntoChapters(arrays)
+    return parseArraysIntoChapters(arrays);
 }
     
 function parseArraysIntoChapters(array) {
 
-    var chapters = []
-    var chapterCount = array.length - 2 //2 header rows
+    var chapters = [];
+    var chapterCount = array.length - 2; //2 header rows
 
     for (var i = 0; i < chapterCount; i++) {
-        chapters.push(new Chapter(i + 2, array))
+        chapters.push(new Chapter(i + 2, array));
     }
     
-    return chapters
+    return chapters;
 }
 
 
@@ -93,7 +94,7 @@ function Chapter(index, csv) {
                 name: categoryName,
                 items: [],
                 totalPoints: function() {
-                    return items.reduce(function(total, item) { return total + item.points })
+                    return this.items.map(e => e.points).reduce((acc, elem) => acc += elem);
                 }
             }
         }
