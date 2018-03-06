@@ -53,7 +53,7 @@ function loadPointsForChapter() {
         
         var pageBody = ` 
             <div id='${"events-" + classification}' style="margin: 0 auto;">
-                <div class='${classification}Header' id="bigChapterLetters">${chapter.letters}</div>
+                <div class='${classification}Header' id="pageTitle">${chapter.letters}</div>
                 <div id="bigChapterName">${chapter.name}</div>
                 <div id="bigChapterPoints">
                     <span class='${classification}Header'>
@@ -70,7 +70,7 @@ function loadPointsForChapter() {
 
                             return `<tr class="contentRow">
                                 <td>
-                                    <div class="chapterEventName"><b>${category.name}</b></div>
+                                    <div class="chapterEventName"><a href="/event.html?e=${encodeURIComponent(category.name)}"><b>${category.name}</b></a></div>
                                     <table class="chapterEvent">
                                         ${ arrayToHTML(category.items, function(item) {
 
