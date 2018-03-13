@@ -160,7 +160,17 @@ function insertBasicHTMLContent() {
                             <div class="standingsHeader fratHeader">Top 5 Fraternities</div>
                             <div id="fraternity"></div>
                         </div>
-                    </div>`;
+                    </div>
+                    <div class="row allOrgs" style="width:100%;" cellpadding="0" cellspacing="0">
+                        <div class="col-sm-6">
+                            <div class="standingsHeader sratHeader">All Sororities</div>
+                            <div id="sorority"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="standingsHeader fratHeader">All Fraternities</div>
+                            <div id="fraternity"></div>
+                        </div>
+                    </div>`
     $('.mainSheet #pageContent').removeClass('loading').html(content);
 }
 
@@ -173,7 +183,18 @@ function insertTopChapters(type, chapters) {
                        </td>
                    </tr>`;
         $(`#pageContent .row.topRankings #${type}`).append(row);
+    }
+}
 
+function insertAllChapters(type, chapters) {
+    for (chapter of chapters) {
+        var row = `<tr class='${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
+                       <td class="chapterPointName"><a href="/chapter.html?${type === 'fraternity' ? 'f' : 's'}=${chapter.chapter.name.replace(/\s/g, '')}">${chapter.chapter.name}</a></td>
+                       <td class="chapterPointValue">
+                           <b>${chapter.totalPoints} ${(chapter.totalPoints == 1) ? "point" : "points"}</b>
+                       </td>
+                   </tr>`;
+        $(`#pageContent .row.allOrgs #${type}`).append(row);
     }
 }
 
@@ -201,7 +222,7 @@ function transformChaptersToEvents(chapters, event) {
 function generateEventPage() {
     var event = decodeURIComponent(getParameterByName('e'));
     if (!event || !isValidEvent(event)) {
-        window.location = '/404';
+        window.location = '/';
         return;
     }
 
@@ -210,8 +231,16 @@ function generateEventPage() {
         insertBasicHTMLContent();
         var fraternityEvent = transformChaptersToEvents(fraternities, event);
         var sororityEvent = transformChaptersToEvents(sororities, event);
+
+        if (fraternityEvent.length === 0 || sororityEvent.length === 0) {
+            window.location = '/';
+            return;
+        }
+
         insertTopChapters('fraternity', fraternityEvent.splice(0, 5));
         insertTopChapters('sorority', sororityEvent.splice(0, 3));
+        insertAllChapters('fraternity', fraternityEvent);
+        insertAllChapters('sorority', sororityEvent);
     });
 }
 
