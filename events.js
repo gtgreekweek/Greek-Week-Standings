@@ -169,9 +169,9 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                     </div>
-                    <div class="row allOrgs" style="width:100%;" cellpadding="0" cellspacing="0">
+                    <div class="row allOrgs" style="width:100%; margin-top:55px;" cellpadding="0" cellspacing="0">
                         <div class="col-sm-12">
-                            <div class="pageTitle">Points Awarded</div>
+                            <div class="pageTitle minor">Points Awarded</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="standingsHeader sratHeader">Sororities</div>
@@ -194,7 +194,7 @@ function insertBasicHTMLContent() {
 }
 
 function generateLink(type, chapter, content) {
-    return `<a class="aBlock" href="/chapter.html?${type === 'fraternity' ? 'f' : 's'}=${chapter.chapter.nameNoSpaces()}">${content}</a>` 
+    return `<a class="aBlock" href="/chapter.html?${type === 'fraternities' ? 'f' : 's'}=${chapter.chapter.nameNoSpaces()}">${content}</a>` 
 }
 
 function insertTopChapters(type, chapters) {
@@ -228,27 +228,21 @@ function insertAllChapters(type, chapters) {
             var hasScore = false;
             if (item.points > 0) hasScore = true;
             eventRows += `<div style="display: block; width:100%"><div style="text-align: left; display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.name}</p></div></div>`;
-            scoreRows += `<div style="display: block; width:100%; text-align: right;"><div style="text-align: right;display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.points}</p></div></div>`;
+            scoreRows += `<div style="display: block; width:100%; text-align: right; margin-right:15px; padding-right:15px;"><div style=""><b><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.points} points</p></b></div></div>`;
         }
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="chapterPointName">
-                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters">${chapter.chapter.letters}</div></td></tr><tr><td><div class="chapterName">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
-                        </td>
-                        <td class="chapterPointValue">
-                            ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="chapterPoints"><b>${chapter.totalPoints}</b> ${(chapter.totalPoints == 1) ? "point" : "points"}</div></td></tr></tbody></table>`)}
-                        </td>
-                        <td>
-                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="Disclosure Indicator.png">`)}
+                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters" style="font-family: Georgia; font-size:25px;">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
                         </td>
                     </tr>
                     <tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td style="width: 100%; padding-left: 15px">
                             ${eventRows}
                         </td>
-                        <td></td>
-                        <td style="width: 100%; padding-right: 20px;">
+                        <td style="width: 100%; padding-right: 20px;display:inline;">
                             ${scoreRows}
                         </td>
+                        <td></td>
                     </tr>`;
 
         $(`#pageContent .row.allOrgs #${type}_all > table > tbody`).append(row);
@@ -309,10 +303,13 @@ function generateEventPage() {
             return a.chapter.name > b.chapter.name ? 1 : -1;
         });
 
-        console.log(filterFratEvent)
+        if (filterFratEvent[0].items.length !== 1) {
+            insertTopChapters('fraternities', fraternityEvent.splice(0, 5));
+            insertTopChapters('sororities', sororityEvent.splice(0, 3));
+        } else {
+            $('#pageContent .row.topRankings').remove();
+        }
 
-        insertTopChapters('fraternities', fraternityEvent.splice(0, 5));
-        insertTopChapters('sororities', sororityEvent.splice(0, 3));
         insertAllChapters('fraternities', filterFratEvent);
         insertAllChapters('sororities', filterSratEvent);
     });
