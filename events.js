@@ -156,7 +156,7 @@ function insertBasicHTMLContent() {
 }
 
 function generateLink(type, chapter, content) {
-    return `<a class="aBlock" href="/chapter.html?${type === 'fraternities' ? 'f' : 's'}=${chapter.chapter.nameNoSpaces()}">${content}</a>` 
+    return `<a class="aBlock" href="/chapter.html?${type == 'fraternities' ? 'f' : 's'}=${chapter.chapter.nameNoSpaces()}">${content}</a>` 
 }
 
 function insertTopChapters(type, chapters) {
