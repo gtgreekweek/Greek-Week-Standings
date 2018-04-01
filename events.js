@@ -1,40 +1,6 @@
 var fraternity = "frat"
 var sorority = "srat"
 
-const allowedEvents = [
-    'Leadership Breakfast',
-    'Bromance',
-    'Greek God',
-    'Greek Goddess',
-    'Stroll',
-    'Eating Contest',
-    'Super Splash',
-    'Bailout',
-    'Trivia',
-    'Sumo Suit Race',
-    'Cornhole',
-    'Slam Dunk',
-    'Faculty Luncheon',
-    'Egg Toss',
-    'Human Pyramid',
-    'Sweatshirt Relay',
-    'Inner Tube Relay',
-    'Sand Volleyball',
-    'Penalty Kick Shootout',
-    'Flag Football',
-    'Dodgeball',
-    'Tug',
-    'Dizzy Bat',
-    'Obstacle Course',
-    'Alumni Reception',
-    'Greek Sing',
-    'Sting Hunger Now',
-    'Blood Drive',
-    'Tech Beautification Day',
-    'Relay for Life'
-];
-
-
 function Event(name) {
     this.name = name;
     this.fraternityPoints = [];
@@ -127,10 +93,6 @@ function getPointsObject(category) {
     };
 
     return points;
-}
-
-function isValidEvent(event) {
-    return allowedEvents.indexOf(event) > -1;
 }
 
 function generatePageTitle(event) {
@@ -273,7 +235,7 @@ function transformChaptersToEvents(chapters, event) {
 
 function generateEventPage() {
     var event = decodeURIComponent(getParameterByName('e'));
-    if (!event || !isValidEvent(event)) {
+    if (!event) {
         window.location = '/';
         return;
     }
