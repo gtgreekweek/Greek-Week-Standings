@@ -134,7 +134,7 @@ function isValidEvent(event) {
 }
 
 function generatePageTitle(event) {
-    $('.mainSheet #pageTitle').text(event);
+    $('.mainSheet .pageTitle').text(event);
 }
 
 function getParameterByName(name) {
@@ -153,48 +153,105 @@ function getParameterByName(name) {
 function insertBasicHTMLContent() {
     var content = `<div class="row topRankings" style="width:100%;" cellpadding="0" cellspacing="0">
                         <div class="col-sm-6">
-                            <div class="standingsHeader sratHeader">Top 3 Sororities</div>
-                            <div id="sorority"></div>
+                            <div class="standingsHeader sratHeader">Top Sororities</div>
+                            <div id="sororities">
+                                <table class="contentTable" style="width:100%;">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="standingsHeader fratHeader">Top 5 Fraternities</div>
-                            <div id="fraternity"></div>
+                            <div class="standingsHeader fratHeader">Top Fraternities</div>
+                            <div id="fraternities">
+                                <table class="contentTable" style="width:100%;">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="row allOrgs" style="width:100%;" cellpadding="0" cellspacing="0">
-                        <div class="col-sm-6">
-                            <div class="standingsHeader sratHeader">All Sororities</div>
-                            <div id="sorority"></div>
+                        <div class="col-sm-12">
+                            <div class="pageTitle">Points Awarded</div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="standingsHeader fratHeader">All Fraternities</div>
-                            <div id="fraternity"></div>
+                            <div class="standingsHeader sratHeader">Sororities</div>
+                            <div id="sororities_all" class="sororities_table">
+                                <table class="contentTable" style="width:100%;">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="standingsHeader fratHeader">Fraternities</div>
+                            <div id="fraternities_all" class="fraternities_table">
+                                <table class="contentTable" style="width:100%;">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>`
     $('.mainSheet #pageContent').removeClass('loading').html(content);
 }
 
+function generateLink(type, chapter, content) {
+    return `<a class="aBlock" href="/chapter.html?${type === 'fraternity' ? 'f' : 's'}=${chapter.chapter.nameNoSpaces()}">${content}</a>` 
+}
+
 function insertTopChapters(type, chapters) {
+    var i = 0;
     for (chapter of chapters) {
-        var row = `<tr class='${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
-                       <td class="chapterPointName"><a href="/chapter.html?${type === 'fraternity' ? 'f' : 's'}=${chapter.chapter.name.replace(/\s/g, '')}">${chapter.chapter.name}</a></td>
-                       <td class="chapterPointValue">
-                           <b>${chapter.totalPoints} ${(chapter.totalPoints == 1) ? "point" : "points"}</b>
-                       </td>
+        i++;
+        var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
+                        <td class="rankingPosition" style="padding:0;">
+                            ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="rankingPosition" style="padding:0;"><b>#${i}</b></div></td></tr></tbody></table>`)}
+                        </td>
+                        <td class="chapterPointName">
+                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters">${chapter.chapter.letters}</div></td></tr><tr><td><div class="chapterName">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
+                        </td>
+                        <td class="chapterPointValue">
+                            ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="chapterPoints"><b>${chapter.totalPoints}</b> ${(chapter.totalPoints == 1) ? "point" : "points"}</div></td></tr></tbody></table>`)}
+                        </td>
+                        <td>
+                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="Disclosure Indicator.png">`)}
+                        </td>
                    </tr>`;
-        $(`#pageContent .row.topRankings #${type}`).append(row);
+
+            $(`#pageContent .row.topRankings #${type} > table > tbody`).append(row);
     }
 }
 
 function insertAllChapters(type, chapters) {
     for (chapter of chapters) {
-        var row = `<tr class='${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
-                       <td class="chapterPointName"><a href="/chapter.html?${type === 'fraternity' ? 'f' : 's'}=${chapter.chapter.name.replace(/\s/g, '')}">${chapter.chapter.name}</a></td>
-                       <td class="chapterPointValue">
-                           <b>${chapter.totalPoints} ${(chapter.totalPoints == 1) ? "point" : "points"}</b>
-                       </td>
-                   </tr>`;
-        $(`#pageContent .row.allOrgs #${type}`).append(row);
+        var eventRows = '';
+        var scoreRows = '';
+        for (item of chapter.items) {
+            var hasScore = false;
+            if (item.points > 0) hasScore = true;
+            eventRows += `<div style="display: block; width:100%"><div style="text-align: left; display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.name}</p></div></div>`;
+            scoreRows += `<div style="display: block; width:100%; text-align: right;"><div style="text-align: right;display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.points}</p></div></div>`;
+        }
+        var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
+                        <td class="chapterPointName">
+                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters">${chapter.chapter.letters}</div></td></tr><tr><td><div class="chapterName">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
+                        </td>
+                        <td class="chapterPointValue">
+                            ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="chapterPoints"><b>${chapter.totalPoints}</b> ${(chapter.totalPoints == 1) ? "point" : "points"}</div></td></tr></tbody></table>`)}
+                        </td>
+                        <td>
+                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="Disclosure Indicator.png">`)}
+                        </td>
+                    </tr>
+                    <tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
+                        <td style="width: 100%; padding-left: 15px">
+                            ${eventRows}
+                        </td>
+                        <td></td>
+                        <td style="width: 100%; padding-right: 20px;">
+                            ${scoreRows}
+                        </td>
+                    </tr>`;
+
+        $(`#pageContent .row.allOrgs #${type}_all > table > tbody`).append(row);
     }
 }
 
@@ -203,11 +260,13 @@ function transformChaptersToEvents(chapters, event) {
     for (var chapter of chapters) {
         var data = {
             totalPoints: 0,
-            chapter: chapter
+            chapter: chapter,
+            items: []
         }
 
         var chapterEventData = chapter.pointCategories.filter(function(e) { return e.name === event;});
         if (chapterEventData.length === 1) {
+            data.items = chapterEventData[0].items;
             data.totalPoints = chapterEventData[0].totalPoints();
         }
         eventData.push(data);
@@ -217,7 +276,6 @@ function transformChaptersToEvents(chapters, event) {
     });
     return eventData;
 }
-
 
 function generateEventPage() {
     var event = decodeURIComponent(getParameterByName('e'));
@@ -237,10 +295,26 @@ function generateEventPage() {
             return;
         }
 
-        insertTopChapters('fraternity', fraternityEvent.splice(0, 5));
-        insertTopChapters('sorority', sororityEvent.splice(0, 3));
-        insertAllChapters('fraternity', fraternityEvent);
-        insertAllChapters('sorority', sororityEvent);
+        var filterSratEvent = sororityEvent.filter(function(chapter) {
+            return chapter.totalPoints > 0;
+        }).sort(function(a, b) {
+            if (a.chapter.name === b.chapter.name) return 0;
+            return a.chapter.name > b.chapter.name ? 1 : -1;
+        });
+
+        var filterFratEvent = fraternityEvent.filter(function(chapter) {
+            return chapter.totalPoints > 0;
+        }).sort(function(a, b) {
+            if (a.chapter.name === b.chapter.name) return 0;
+            return a.chapter.name > b.chapter.name ? 1 : -1;
+        });
+
+        console.log(filterFratEvent)
+
+        insertTopChapters('fraternities', fraternityEvent.splice(0, 5));
+        insertTopChapters('sororities', sororityEvent.splice(0, 3));
+        insertAllChapters('fraternities', filterFratEvent);
+        insertAllChapters('sororities', filterSratEvent);
     });
 }
 

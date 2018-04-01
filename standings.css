@@ -120,19 +120,19 @@
     padding-bottom: 15px;
 }
 
-#fraternities .contentRow:nth-child(even) {
+#fraternities .contentRow:nth-child(even), .fraternities_table .contentRow:nth-child(even) {
     background-color: rgb(239, 246, 255);
 }
 
-#sororities .contentRow:nth-child(even) {
+#sororities .contentRow:nth-child(even), .sororities_table .contentRow:nth-child(even) {
     background-color: rgb(255, 250, 232);
 }
 
-#fraternities {
+#fraternities, .fraternities_table {
     width: 100%;
 }
 
-#sororities {
+#sororities, .sororities_table {
     width: 100%;
     padding-bottom: 25px;
 }
@@ -147,11 +147,11 @@
     margin-right: 15px;
 }
 
-#sororities .contentRow:nth-child(odd) .disclosureIndicator {
+#sororities .contentRow:nth-child(odd) .disclosureIndicator, .sororities_table .contentRow:nth-child(even) .disclosureIndicator {
     opacity: 0.8;
 }
 
-#fraternities .contentRow:nth-child(odd) .disclosureIndicator {
+#fraternities .contentRow:nth-child(odd) .disclosureIndicator, .fraternities_table .contentRow:nth-child(even) .disclosureIndicator {
     opacity: 0.8;
 }
 
@@ -172,7 +172,7 @@ span.loading {
 /* Individual Chapter */
 /* ------------------ */
 
-#pageTitle {
+.pageTitle {
     font-size: 50;
     text-align: center;
     font-family: serif;

@@ -53,7 +53,7 @@ function loadPointsForChapter() {
         
         var pageBody = ` 
             <div id='${"events-" + classification}' style="margin: 0 auto;">
-                <div class='${classification}Header' id="pageTitle">${chapter.letters}</div>
+                <div class='${classification}Header' class="pageTitle">${chapter.letters}</div>
                 <div id="bigChapterName">${chapter.name}</div>
                 <div id="bigChapterPoints">
                     <span class='${classification}Header'>
