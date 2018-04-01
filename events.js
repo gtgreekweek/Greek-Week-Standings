@@ -202,7 +202,7 @@ function insertTopChapters(type, chapters) {
     for (chapter of chapters) {
         i++;
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
-                        <td class="rankingPosition" style="padding:0;">
+                        <td class="rankingPosition" style="padding:0;padding-left: 15px;">
                             ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="rankingPosition" style="padding:0;"><b>#${i}</b></div></td></tr></tbody></table>`)}
                         </td>
                         <td class="chapterPointName">
