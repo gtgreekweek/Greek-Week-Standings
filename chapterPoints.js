@@ -70,7 +70,7 @@ function loadPointsForChapter() {
 
                             return `<tr class="contentRow">
                                 <td>
-                                    <div class="chapterEventName"><a href="/event.html?e=${encodeURIComponent(category.name)}"><b>${category.name}</b></a></div>
+                                    <div class="chapterEventName"><a href="event.html?e=${encodeURIComponent(category.name)}"><b>${category.name}</b></a></div>
                                     <table class="chapterEvent">
                                         ${ arrayToHTML(category.items, function(item) {
 
