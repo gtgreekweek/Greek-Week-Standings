@@ -1,5 +1,5 @@
 // CONSTANTS
-var dataDocument = "https://docs.google.com/spreadsheets/d/1GSYJvKrUoF6YrWA6FuA6fCgbakdYfH3_m9VqWZTI6IE/pub?gid=32378140&single=true&output=csv"
+var dataDocument = "https://docs.google.com/spreadsheets/d/1FQDZEDpVKWtm4xwp5TP0UdCemP0YREkosvfNCKpOMlQ/pub?gid=32378140&single=true&output=csv"
 
 var fraternity = "frat"
 var sorority = "srat"

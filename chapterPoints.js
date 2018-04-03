@@ -10,13 +10,13 @@ function loadPointsForChapter() {
     var chapterName = undefined
     var classification = undefined
     
-    var fraternityName = getParameterByName("f")
-    var sororityName = getParameterByName("s")
+    var fraternityName = decodeURIComponent(getParameterByName("f"))
+    var sororityName = decodeURIComponent(getParameterByName("s"))
     
-    if (fraternityName != undefined) {
+    if (fraternityName != "undefined") {
         chapterName = fraternityName
         classification = fraternity
-    } else if (sororityName != undefined) {
+    } else if (sororityName != "undefined") {
         chapterName = sororityName
         classification = sorority
     } else {
@@ -25,8 +25,8 @@ function loadPointsForChapter() {
     }
     
     //convert 'AlphaChiOmega' to 'Alpha Chi Omega' and update the page's title
-    let chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
-    $("title").html(`${chapterNameWithSpaces} - Greek Week 2017`)
+    var chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
+    $("title").html(`${chapterNameWithSpaces} - Greek Week 2018`)
     
     //load data for chapter
     getChapterArrays(function(fraternities, sororities) {

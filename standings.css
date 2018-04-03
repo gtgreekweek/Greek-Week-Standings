@@ -91,13 +91,14 @@
     width: 100%;
     margin-bottom: -2px;
     padding-left: 15px;
+    padding-right: 25px;
     font-family: serif;
 }
 
 .chapterName {
     font-family: sans-serif;
     padding-left: 15px;
-    padding-right: 5px;
+    padding-right: 25px;
     font-size: 16px;
     max-width: 175px;
 }

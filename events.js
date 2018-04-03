@@ -97,6 +97,7 @@ function getPointsObject(category) {
 
 function generatePageTitle(event) {
     $('.mainSheet .pageTitle').text(event);
+    $("title").html(`${event} - Greek Week 2018`)
 }
 
 function getParameterByName(name) {
@@ -113,7 +114,7 @@ function getParameterByName(name) {
 }
 
 function insertBasicHTMLContent() {
-    var content = `<div class="row topRankings" style="width:100%;" cellpadding="0" cellspacing="0">
+    var content = `<div class="row topRankings" style="width:100%; margin-top:15px;" cellpadding="0" cellspacing="0">
                         <div class="col-sm-6">
                             <div class="standingsHeader sratHeader">Top Sororities</div>
                             <div id="sororities">
@@ -131,12 +132,11 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                     </div>
-                    <div class="row allOrgs" style="width:100%; margin-top:55px;" cellpadding="0" cellspacing="0">
-                        <div class="col-sm-12">
-                            <div class="pageTitle minor">Points Awarded</div>
+                    <div class="row allOrgs" style="width:100%; margin-top:45px;" cellpadding="0" cellspacing="0">
+                        <div class="col-sm-12" id="pointsAwardedHeader">
+                            <div class="pageTitle minor" style="margin-bottom:10px">Points Awarded</div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="standingsHeader sratHeader">Sororities</div>
                             <div id="sororities_all" class="sororities_table">
                                 <table class="contentTable" style="width:100%;">
                                     <tbody></tbody>
@@ -144,7 +144,6 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="standingsHeader fratHeader">Fraternities</div>
                             <div id="fraternities_all" class="fraternities_table">
                                 <table class="contentTable" style="width:100%;">
                                     <tbody></tbody>
@@ -152,6 +151,7 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                     </div>`
+    
     $('.mainSheet #pageContent').removeClass('loading').html(content);
 }
 
@@ -190,18 +190,18 @@ function insertAllChapters(type, chapters) {
             var hasScore = false;
             if (item.points > 0) hasScore = true;
             eventRows += `<div style="display: block; width:100%"><div style="text-align: left; display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.name}</p></div></div>`;
-            scoreRows += `<div style="display: block; width:100%; text-align: right; margin-right:15px; padding-right:15px;"><div style=""><b><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.points} points</p></b></div></div>`;
+            scoreRows += `<div style="display: block; width:100%; text-align: right; margin-right:15px;"><div style=""><b><p style="color: ${hasScore ? 'black' : '#bbb'};">${item.points} points</p></b></div></div>`;
         }
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="chapterPointName">
-                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters" style="font-family: Georgia; font-size:25px;">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
+                            ${generateLink(type, chapter, `<table class="chapterNameTable"><tbody><tr><td><div class="chapterLetters" style="font-family: Georgia; font-size:20px;">${chapter.chapter.name}</div></td></tr></tbody></table>`)}
                         </td>
                     </tr>
                     <tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
-                        <td style="width: 100%; padding-left: 15px">
+                        <td style="width: 100%; padding-left: 20px; padding-bottom: 5px;">
                             ${eventRows}
                         </td>
-                        <td style="width: 100%; padding-right: 20px;display:inline;">
+                        <td style="width: 100%; padding-right: 20px; padding-bottom: 5px; display:inline;">
                             ${scoreRows}
                         </td>
                         <td></td>
@@ -264,12 +264,20 @@ function generateEventPage() {
             if (a.chapter.name === b.chapter.name) return 0;
             return a.chapter.name > b.chapter.name ? 1 : -1;
         });
-
-        if (filterFratEvent[0].items.length !== 1) {
+        
+        var itemsOtherThanJustSpectatorsAndParticipants = filterFratEvent[0].items.filter(function(itemCategory) {
+            return (itemCategory.name != "Spectators") && (itemCategory.name != "Participation")
+        })
+        
+        var eventHasPlacement = itemsOtherThanJustSpectatorsAndParticipants.length != 0
+        
+        if (eventHasPlacement) {
             insertTopChapters('fraternities', fraternityEvent.splice(0, 5));
             insertTopChapters('sororities', sororityEvent.splice(0, 3));
         } else {
             $('#pageContent .row.topRankings').remove();
+            $('#pointsAwardedHeader').remove();
+            $('#pageContent .row.allOrgs').css('margin-top', '15px');
         }
 
         insertAllChapters('fraternities', filterFratEvent);
