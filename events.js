@@ -97,6 +97,7 @@ function getPointsObject(category) {
 
 function generatePageTitle(event) {
     $('.mainSheet .pageTitle').text(event);
+    $("title").html(`${event} - Greek Week 2018`)
 }
 
 function getParameterByName(name) {
@@ -150,6 +151,7 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                     </div>`
+    
     $('.mainSheet #pageContent').removeClass('loading').html(content);
 }
 
