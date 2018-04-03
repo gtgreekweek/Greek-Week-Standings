@@ -13,10 +13,10 @@ function loadPointsForChapter() {
     var fraternityName = decodeURIComponent(getParameterByName("f"))
     var sororityName = decodeURIComponent(getParameterByName("s"))
     
-    if (fraternityName != undefined) {
+    if (fraternityName != "undefined") {
         chapterName = fraternityName
         classification = fraternity
-    } else if (sororityName != undefined) {
+    } else if (sororityName != "undefined") {
         chapterName = sororityName
         classification = sorority
     } else {
