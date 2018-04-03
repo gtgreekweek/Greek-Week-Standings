@@ -10,8 +10,8 @@ function loadPointsForChapter() {
     var chapterName = undefined
     var classification = undefined
     
-    var fraternityName = getParameterByName("f")
-    var sororityName = getParameterByName("s")
+    var fraternityName = decodeURIComponent(getParameterByName("f"))
+    var sororityName = decodeURIComponent(getParameterByName("s"))
     
     if (fraternityName != undefined) {
         chapterName = fraternityName
@@ -25,7 +25,7 @@ function loadPointsForChapter() {
     }
     
     //convert 'AlphaChiOmega' to 'Alpha Chi Omega' and update the page's title
-    let chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
+    var chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
     $("title").html(`${chapterNameWithSpaces} - Greek Week 2017`)
     
     //load data for chapter
