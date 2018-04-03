@@ -190,7 +190,7 @@ function insertAllChapters(type, chapters) {
             var hasScore = false;
             if (item.points > 0) hasScore = true;
             eventRows += `<div style="display: block; width:100%"><div style="text-align: left; display:inline-block;"><p style="color: ${hasScore ? 'black' : '#bbb'}">${item.name}</p></div></div>`;
-            scoreRows += `<div style="display: block; width:100%; text-align: right; margin-right:15px;"><div style=""><b><p style="color: ${hasScore ? 'black' : '#bbb'};">${item.points} points</p></b></div></div>`;
+            scoreRows += `<div style="display: block; width:100%; text-align: right; margin-right:15px;padding-right:15px;"><div style=""><b><p style="color: ${hasScore ? 'black' : '#bbb'};">${item.points} ${item.points === 1 ? 'point' : 'points'}</p></b></div></div>`;
         }
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="chapterPointName">
