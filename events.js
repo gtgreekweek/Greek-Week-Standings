@@ -162,6 +162,10 @@ function generateLink(type, chapter, content) {
 function insertTopChapters(type, chapters) {
     var i = 0;
     for (chapter of chapters) {
+        if (chapter.totalPoints == 0) {
+            continue;
+        }
+        
         i++;
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="rankingPosition" style="padding:0;padding-left: 15px;">

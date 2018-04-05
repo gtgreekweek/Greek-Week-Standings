@@ -144,7 +144,7 @@
 
 .disclosureIndicator {
     width: 7.5px;
-    margin-left: 5px;
+    margin-left: 1px;
     margin-right: 15px;
 }
 
@@ -241,8 +241,7 @@ span.loading {
 }
 
 .chapterPointValue {
-    padding-left: 30px;
-    padding-right: 20px;
+    padding-left:10px;
     padding-bottom: 10px;
 }
 
