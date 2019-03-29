@@ -97,17 +97,17 @@ function getPointsObject(category) {
 
 function generatePageTitle(event) {
     $('.mainSheet .pageTitle').text(event);
-    $("title").html(`${event} - Greek Week 2018`)
+    $("title").html(`${event} - Greek Week 2019`)
 }
 
 function getParameterByName(name) {
     name = name.replace(/[\[\]]/g, "\\$&");
 
     var url = window.location.href;
-    
+
     var regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
     var results = regex.exec(url);
-    
+
     if (!results || !results[2]) return null;
 
     return results[2].replace(/\+/g, " "); //decodeURIComponent(results[2].replace(/\+/g, " "));
@@ -151,7 +151,7 @@ function insertBasicHTMLContent() {
                             </div>
                         </div>
                     </div>`
-    
+
     $('.mainSheet #pageContent').removeClass('loading').html(content);
 }
 
@@ -165,7 +165,7 @@ function insertTopChapters(type, chapters) {
         if (chapter.totalPoints == 0) {
             continue;
         }
-        
+
         i++;
         var row = `<tr class='contentRow ${(chapter.totalPoints == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="rankingPosition" style="padding:0;padding-left: 15px;">
@@ -268,13 +268,13 @@ function generateEventPage() {
             if (a.chapter.name === b.chapter.name) return 0;
             return a.chapter.name > b.chapter.name ? 1 : -1;
         });
-        
+
         var itemsOtherThanJustSpectatorsAndParticipants = filterFratEvent[0].items.filter(function(itemCategory) {
             return (itemCategory.name != "Spectators") && (itemCategory.name != "Participation")
         })
-        
+
         var eventHasPlacement = itemsOtherThanJustSpectatorsAndParticipants.length != 0
-        
+
         if (eventHasPlacement) {
             insertTopChapters('fraternities', fraternityEvent.splice(0, 5));
             insertTopChapters('sororities', sororityEvent.splice(0, 3));
@@ -288,4 +288,3 @@ function generateEventPage() {
         insertAllChapters('sororities', filterSratEvent);
     });
 }
-

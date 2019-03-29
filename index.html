@@ -3,7 +3,7 @@
         <meta charset="utf8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Standings - Greek Week 2018</title>
+        <title>Standings - Greek Week 2019</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
@@ -31,11 +31,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
 
-        <script type="text/javascript" src="standings.js"></script>
-        <script type="text/javascript" src="chapter.js"></script>
-        <script type="text/javascript" src="event.js"></script>
-        <script type="text/javascript" src="events.js"></script>
-        <link rel="stylesheet" type="text/css" href="standings.css">
+        <script type="text/javascript" src="/js/standings.js"></script>
+        <script type="text/javascript" src="/js/chapter.js"></script>
+        <script type="text/javascript" src="/js/event.js"></script>
+        <script type="text/javascript" src="/js/events.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/standings.css">
     </head>
 
     <body onload="loadStandings()">
@@ -46,21 +46,63 @@
             </div>
         </a>
 
-        <div class="mainSheet" id="standings">
-            <div class="mainStandingsHeader">
-                2018 Standings
-                <div class="mainStandingsSubtitle">
-                    <!-- Subtitle goes here -->
+        <div class="container-fluid">
+            <div class="row" cellpadding="0" cellspacing="0">
+                <div class="mainSheet col-sm-6">
+                    <div class="mainStandingsHeader">
+                        Recent Events
+                        <div class="mainStandingsSubtitle">
+                            <!-- Something to put here? -->
+                        </div>
+                    </div>
+                    <div class="row eventsFeed" id="eventsFeed">
+                        <div class="col-md-auto" style="font-family:sans-serif; padding: 40px;">Loading...</div>
+                    </div>
+                </div>
+
+                <div class="container mainSheet col-sm-6" id="standings">
+                    <div class="mainStandingsHeader">
+                        2019 Standings
+                        <div class="mainStandingsSubtitle">
+                            Last updated 3/26/2019 @ 3:59pm <!-- TODO don't hardcode this -->
+                        </div>
+                    </div>
+                    <div class="row" cellpadding="0" cellspacing="0">
+                        <div class="col-sm-6">
+                            <div class="standingsHeader sratHeader">Sororities</div>
+                            <div id="sororities">
+                                <div style="font-family:sans-serif; padding:40px;">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="standingsHeader fratHeader">Fraternities</div>
+                            <div id="fraternities"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row" style="width:100%;" cellpadding="0" cellspacing="0">
-                <div class="col-sm-6">
-                    <div class="standingsHeader sratHeader">Sororities</div>
-                    <div id="sororities"><div style="font-family:sans-serif; padding:40px;">Loading...</div></div>
+        </div>
+
+        <div class="container footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="official">
+                        <img class="seal" src="/images/home/gatech.png" />
+                        <p class="copyright">GT Greek Week Calendar &copy; 2018 - 2019 &middot;
+                            <a href="https://github.com/gtgreekweek" target="_blank">2019 Technology Committee</a>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="standingsHeader fratHeader">Fraternities</div>
-                    <div id="fraternities"></div>
+                <div class="col-md-6">
+                    <div class="icons">
+                        <a href="https://www.facebook.com/georgiatechgreekweek/" onclick="openFacebook()" target="_blank">
+                            <img src="/images/home/facebook.png" />
+                        </a>
+                        <a href="https://github.com/gtgreekweek" target="_blank">
+                            <img src="/images/home/github.png" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
