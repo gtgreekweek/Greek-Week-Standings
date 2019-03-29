@@ -178,7 +178,7 @@ function insertTopChapters(type, chapters) {
                             ${generateLink(type, chapter, `<table style="float:right"><tbody><tr><td><div class="chapterPoints"><b>${chapter.totalPoints}</b> ${(chapter.totalPoints == 1) ? "point" : "points"}</div></td></tr></tbody></table>`)}
                         </td>
                         <td>
-                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="Disclosure Indicator.png">`)}
+                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="/images/Disclosure Indicator.png">`)}
                         </td>
                    </tr>`;
 
