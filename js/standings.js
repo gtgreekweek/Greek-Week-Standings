@@ -1,15 +1,21 @@
 // Load Standings
 
-function loadStandings() {
-    //showPointsForChapterAtRow(10, fraternity)
+function nameNoSpaces(name) {
+    while(name.includes(" ")) {
+        name = name.replace(" ", "")
+    }
 
-    getChapterArrays(function(fraternities, sororities) {
+    return name
+}
+
+
+function loadStandings() {
+    loadChapters((fraternities, sororities) => {
         renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
-        renderListOfChaptersInDiv(sororities, $("#sororities"), sorority)
-        // Events called here for debugging purposes until event page is created
-        var events = generateEventsFromChapters(fraternities, sororities);
-        renderEventsFeed(events, $("#eventsFeed"));
-        console.log(events);
+        renderListOfChaptersInDiv(sororities, $("#sororities"), fraternity)
+    })
+    loadMostRecentEvents((eventsToShow) => {
+        renderEventsFeed(eventsToShow, $("#eventsFeed"))
     })
 }
 
@@ -22,7 +28,7 @@ function renderListOfChaptersInDiv(chapters, div, classification) {
     var renderedContent = "<table class='contentTable'>"
 
     for (var i = 0; i < chapters.length; i++) {
-        var href = `chapter.html?${classification == fraternity ? 'f' : 's'}=${chapters[i].nameNoSpaces()}`
+        var href = `chapter.html?${classification == fraternity ? 'f' : 's'}=${nameNoSpaces(chapters[i].name)}`
 
         renderedContent += `
             <tr class='contentRow'>
