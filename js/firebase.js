@@ -48,17 +48,26 @@ function loadMostRecentEvents(callback) {
     	calendarArray = results[1].val()
 
 		calendarArray = calendarArray.sort(function(a, b) {
-	        return new Date(b["Date"]) - new Date(a["Date"])
+            aDate = new Date(a["Date"] + " " + a["Time"]);
+            bDate = new Date(b["Date"] + " " + b["Time"]);
+	        return bDate - aDate
 	    })
     	var now = new Date()
-    	eventsToShow = []
+    	events = []
     	for (index in calendarArray) {
     		calendarEntry = calendarArray[index]
-    		if (new Date(calendarEntry["Date"]) <= now && eventsToShow.length < 5) {
-    			eventsToShow.push(calendarEntry[index])
+    		if (new Date(calendarEntry["Date"] + " " +  calendarEntry["Time"]) <= now && events.indexOf(calendarEntry["Display Name"]) < 0) {
+    			events.push(calendarEntry["Display Name"])
     		}
     	}
 
-    	callback(eventsToShow)
+        eventsToReturn = []
+
+        for (index in events) {
+            eventName = events[index]
+            eventObject = eventsObject[eventName]
+            eventsToReturn.push(eventObject)
+        }
+    	callback(eventsToReturn)
     })
 }
