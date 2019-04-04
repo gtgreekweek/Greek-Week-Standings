@@ -6,7 +6,7 @@ var sorority = "srat"
 
 //uses Tabletop to load chapters from Google Sheets
 function getChapterArrays(completion) {
-    loadChapter(completion);
+    loadChapters(completion);
     // Tabletop.init(
     //     {
     //         key: dataDocument,

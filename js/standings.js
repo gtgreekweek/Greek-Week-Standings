@@ -14,9 +14,9 @@ function loadStandings() {
         renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
         renderListOfChaptersInDiv(sororities, $("#sororities"), sorority)
     })
-    loadMostRecentEvents(function (eventsToShow) {
-        renderEventsFeed(eventsToShow, $("#eventsFeed"))
-    })
+    // loadMostRecentEvents(function (eventsToShow) {
+    //     renderEventsFeed(eventsToShow, $("#eventsFeed"))
+    // })
 }
 
 function renderListOfChaptersInDiv(chapters, div, classification) {

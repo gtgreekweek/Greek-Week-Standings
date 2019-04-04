@@ -224,7 +224,10 @@ function transformChaptersToEvents(chapters, event) {
             items: []
         }
 
-        var chapterEventData = chapter.pointCategories.filter(function(e) { return e.name === event;});
+        var chapterEventData = chapter.pointCategories.filter(function(e) {
+            return e.name === event;
+        });
+
         if (chapterEventData.length === 1) {
             data.items = chapterEventData[0].items;
             data.totalPoints = chapterEventData[0].totalPoints();
@@ -245,7 +248,8 @@ function generateEventPage() {
     }
 
     generatePageTitle(event);
-    getChapterArrays(function(fraternities, sororities) {
+    loadEvent(event, function(event_data) {
+        console.log(event_data);
         insertBasicHTMLContent();
         var fraternityEvent = transformChaptersToEvents(fraternities, event);
         var sororityEvent = transformChaptersToEvents(sororities, event);
@@ -284,7 +288,7 @@ function generateEventPage() {
             $('#pageContent .row.allOrgs').css('margin-top', '15px');
         }
 
-        insertAllChapters('fraternities', filterFratEvent);
-        insertAllChapters('sororities', filterSratEvent);
+        insertAllChapters('fraternities', event_data.fraternities);
+        insertAllChapters('sororities', event_data.sororities);
     });
 }
