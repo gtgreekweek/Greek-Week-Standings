@@ -41,31 +41,33 @@ function loadChapters(callback) {
 }
 
 function loadMostRecentEvents(callback) {
-	var promises = [firebase.database().ref("events").once("value"),
-                    firebase.database().ref("calendar").once("value")]
-    Promise.all(promises).then(results => {
-    	eventsObject = results[0].val()
-    	calendarArray = results[1].val()
+    firebase.database().ref("events").once("value").then(results => {
+    	eventsObject = results.val()
+        eventsArray = [];
 
-		calendarArray = calendarArray.sort(function(a, b) {
-            aDate = new Date(a["Date"] + " " + a["Time"]);
-            bDate = new Date(b["Date"] + " " + b["Time"]);
-	        return bDate - aDate
-	    })
+        for (eventName in eventsObject) {
+            event = eventsObject[eventName];
+            event["name"] = eventName;
+            eventsArray.push(event);
+        }
     	var now = new Date()
-    	events = []
-    	for (index in calendarArray) {
-    		calendarEntry = calendarArray[index]
-    		if (new Date(calendarEntry["Date"] + " " +  calendarEntry["Time"]) <= now && events.indexOf(calendarEntry["Display Name"]) < 0) {
-    			events.push(calendarEntry["Display Name"])
+    	eventsArray.sort((a, b) => {
+            return (new Date(b["date"])) - (new Date(a["date"]));
+        });
+        pastEventNames = [];
+    	for (index in eventsArray) {
+    		event = eventsArray[index]
+    		if (new Date(event["date"]) <= now && pastEventNames.indexOf(event["name"]) < 0) {
+    			pastEventNames.push(event["name"])
     		}
     	}
 
         eventsToReturn = []
 
-        for (index in events) {
-            eventName = events[index]
+        for (index in pastEventNames) {
+            eventName = pastEventNames[index]
             eventObject = eventsObject[eventName]
+            eventObject["name"] = eventName
             eventsToReturn.push(eventObject)
         }
     	callback(eventsToReturn)
@@ -141,6 +143,9 @@ function loadEvent(name, callback) {
             }
 
             for (category in event) {
+                if (category == "date"){
+                    continue;
+                }
                 var parts = category.split("_")
                 var key = parts[0]
                 var type = parts[2]
