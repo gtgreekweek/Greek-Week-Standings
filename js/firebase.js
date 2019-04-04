@@ -133,71 +133,71 @@ function loadEvent(name, callback) {
         var sororities = results[1].val()
         var fraternities = results[2].val()
 
-        var events_data = {}
+        var event = events[name]
+        event_data = {}
 
-        for (var event_name in events) {
-            var event = events[event_name]
-            events_data[event_name] = {}
+        var scorers = {fraternities : {}, sororities : {}}
 
-            var scorers = {fraternities : {}, sororities : {}}
+        for (var sorority_name in sororities) {
+            var scores = {
+                total : sororities[sorority_name].totalPoints,
+                letters : sororities[sorority_name].letters,
+                points : {}
+            }
 
-            for (var sorority_name in sororities) {
-                var points = {}
-
-                if (participants = event["Participation_points_sororities"]) {
-                    if ((score = participants[sorority_name]) > 0) {
-                        points["participation"] = score
-                    }
-                }
-
-                if (participants = event["Placement_points_sororities"]) {
-                    if ((score = participants[sorority_name]) > 0) {
-                        points["placement"] = score
-                    }
-                }
-
-                if (participants = event["Spectators_points_sororities"]) {
-                    if ((score = participants[sorority_name]) > 0) {
-                        points["spectator"] = score
-                    }
-                }
-
-                // Add scorer
-                if (Object.keys(points).length > 0) {
-                    scorers.sororities[sorority_name] = points
+            if (participants = event["Participation_points_sororities"]) {
+                if ((score = participants[sorority_name]) > 0) {
+                    scores.points["participation"] = score
                 }
             }
 
-            for (var fraternity_name in fraternities) {
-                var points = {}
-
-                if (participants = event["Participation_points_fraternities"]) {
-                    if ((score = participants[fraternity_name]) > 0) {
-                        points["participation"] = score
-                    }
-                }
-
-                if (participants = event["Placement_points_fraternities"]) {
-                    if ((score = participants[fraternity_name]) > 0) {
-                        points["placement"] = score
-                    }
-                }
-
-                if (participants = event["Spectators_points_sororities"]) {
-                    if ((score = participants[fraternity_name]) > 0) {
-                        points["spectator"] = score
-                    }
-                }
-
-                // Add scorer
-                if (Object.keys(points).length > 0) {
-                    scorers.fraternities[fraternity_name] = points
+            if (participants = event["Placement_points_sororities"]) {
+                if ((score = participants[sorority_name]) > 0) {
+                    scores.points["placement"] = score
                 }
             }
 
-            events_data[event_name].scorers = scorers
+            if (participants = event["Spectators_points_sororities"]) {
+                if ((score = participants[sorority_name]) > 0) {
+                    scores.points["spectator"] = score
+                }
+            }
+
+            // Add scorer
+            if (Object.keys(scores).length > 0) {
+                scorers.sororities[sorority_name] = scores
+            }
         }
 
-        callback(events_data);
+        for (var fraternity_name in fraternities) {
+            var scores = {total : fraternities[fraternity_name].totalPoints, letters : fraternities[fraternity_name].letters, points : {}}
+
+            if (participants = event["Participation_points_fraternities"]) {
+                if ((score = participants[fraternity_name]) > 0) {
+                    scores.points["participation"] = score
+                }
+            }
+
+            if (participants = event["Placement_points_fraternities"]) {
+                if ((score = participants[fraternity_name]) > 0) {
+                    scores.points["placement"] = score
+                }
+            }
+
+            if (participants = event["Spectators_points_sororities"]) {
+                if ((score = participants[fraternity_name]) > 0) {
+                    scores.points["spectator"] = score
+                }
+            }
+
+            // Add scorer
+            if (Object.keys(scores).length > 0) {
+                scorers.fraternities[fraternity_name] = scores
+            }
+        }
+
+        event_data.scorers = scorers
+
+        callback(event_data);
     })
 }
