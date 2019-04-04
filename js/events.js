@@ -275,6 +275,7 @@ function generateEventPage() {
 
     generatePageTitle(event);
     loadEvent(event, function(event_data) {
+        console.log(event_data)
         insertBasicHTMLContent();
         var fraternities = event_data.scorers.fraternities
         var sororities = event_data.scorers.sororities
@@ -314,9 +315,7 @@ function generateEventPage() {
             return frat_total_scores[b] - frat_total_scores[a]
         })
 
-        var eventHasPlacement = true
-
-        if (eventHasPlacement) {
+        if (event_data.has_placement) {
             insertTopChapters('fraternities', fraternities, frat_total_scores, top_fraternities_arr.splice(0, 5));
             insertTopChapters('sororities', sororities, srat_total_scores, top_sororities_arr.splice(0, 3));
         } else {
