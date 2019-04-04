@@ -74,34 +74,44 @@ function loadMostRecentEvents(callback) {
 
 // Load chapter from Firebase
 function loadChapter(name, classification, callback) {
-    firebase.database().ref("events").once("value").then(results => {
-        var events = results.val();
+    var chaptersTable = classification == fraternity ? "fraternities" : "sororities"
+    var promises = [
+        firebase.database().ref("events").once("value"),
+        firebase.database().ref(chaptersTable).once("value"),
+    ]
 
-        var results = {scores : {}, total_points : 0}
+    Promise.all(promises).then(results => {
+        var events = results[0].val()
+        var chapters = results[1].val()
+
+        var results = {chapter : chapters[name], scores : {}}
+
+        var keysSorted = Object.keys(chapters).sort(function (a,b) {
+            return chapters[b].totalPoints - chapters[a].totalPoints
+        })
+
+        results.chapter.place = keysSorted.indexOf(name) + 1
 
         for (event_name in events) {
             var event = events[event_name]
 
             event_data = {}
 
-            participation = classification == "f" ? "Participation_points_fraternities" : "Participation_points_sororities"
-            placement = classification == "f" ? "Placement_points_fraternities" : "Placement_points_sororities"
-            spectator = classification == "f" ? "Spectators_points_fraternities" : "Spectators_points_sororities"
+            participation = classification == fraternity ? "Participation_points_fraternities" : "Participation_points_sororities"
+            placement = classification == fraternity ? "Placement_points_fraternities" : "Placement_points_sororities"
+            spectator = classification == fraternity ? "Spectators_points_fraternities" : "Spectators_points_sororities"
 
             if (event[participation]) {
-                var points = event[participation][name];
+                var points = event[participation][name]
                 event_data["participation"] = points
-                results.total_points += points
             }
             if (event[placement]) {
-                var points = event[placement][name];
+                var points = event[placement][name]
                 event_data["placement"] = points
-                results.total_points += points
             }
             if (event[spectator]) {
-                var points = event[spectator][name];
+                var points = event[spectator][name]
                 event_data["spectator"] = points
-                results.total_points += points
             }
 
             results.scores[event_name] = event_data

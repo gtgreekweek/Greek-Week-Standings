@@ -1,11 +1,9 @@
-
 function abort() {
     window.location = "index.html";
 }
 
 function loadPointsForChapter() {
-
-    //parse query parameters
+    // Parse query parameters
     var chapterName = undefined
     var classification = undefined
 
@@ -23,13 +21,8 @@ function loadPointsForChapter() {
         return
     }
 
-    //convert 'AlphaChiOmega' to 'Alpha Chi Omega' and update the page's title
-    var chapterNameWithSpaces = chapterName.split(/(?=[A-Z])/).reduce(function(partial, item) { return partial + " " + item }, "")
-    $("title").html(`${chapterNameWithSpaces} - Greek Week 2019`)
-
-    //load data for chapter
+    // Load data for chapter
     loadChapter(chapterName, classification, function(chapter_data) {
-
         if (chapter_data == undefined) {
             abort()
             return
@@ -37,14 +30,14 @@ function loadPointsForChapter() {
 
         var pageBody = `
             <div id='${"events-" + classification}' style="margin: 0 auto;">
-                <div class="${classification}Header pageTitle">${chapterName}</div>
+                <div class="${classification}Header pageTitle">${chapter_data.chapter.letters}</div>
                 <div id="bigChapterName">${chapterName}</div>
                 <div id="bigChapterPoints">
                     <span class='${classification}Header'>
-                        <b>${chapterName}</b>
+                        <b>${ordinal_suffix_of(chapter_data.chapter.place)} Place</b>
                     </span>
                     <br>
-                    ${chapter_data.total_points} ${(chapter_data.total_points == 1) ? "Point" : "Total Points"}
+                    ${chapter_data.chapter.totalPoints} ${(chapter_data.chapter.totalPoints == 1) ? "Point" : "Total Points"}
                 </div>
 
                 <div id="chapterEvents">
@@ -114,4 +107,19 @@ function getParameterByName(name) {
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function ordinal_suffix_of(i) {
+    var j = i % 10,
+        k = i % 100;
+    if (j == 1 && k != 11) {
+        return i + "st";
+    }
+    if (j == 2 && k != 12) {
+        return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+        return i + "rd";
+    }
+    return i + "th";
 }

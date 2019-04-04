@@ -135,15 +135,8 @@ function Chapter(index, csv) {
         return name
     }
 
-    this.placeStringFromArray = function(chaptersArray) {
-        var sortedChapters = chaptersArray.sort(function(left, right) {
-            return right.points - left.points
-        })
-
-        console.log(sortedChapters);
-
-        var placeNumber = sortedChapters.indexOf(this) + 1
-        var placeWithSuffix = ordinal_suffix_of(placeNumber)
+    this.placeStringFromArray = function(place) {
+        var placeWithSuffix = ordinal_suffix_of(place)
 
         return `${placeWithSuffix} Place`
     }
