@@ -15,7 +15,7 @@
         <meta name="msapplication-config" content="/favicons/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
-        <script>
+        <!-- <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -23,7 +23,7 @@
 
             ga('create', 'UA-96540111-1', 'auto');
             ga('send', 'pageview');
-        </script>
+        </script> -->
 
         <!-- Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -34,13 +34,11 @@
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
         <script type="text/javascript" src="/js/firebase.js"></script>
-        <script type="text/javascript" src="/js/standings.js"></script>
-        <script type="text/javascript" src="/js/chapter.js"></script>
-        <script type="text/javascript" src="/js/events.js"></script>
+        <script type="text/javascript" src="/js/eventfeed.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/standings.css">
     </head>
 
-    <body onload="loadStandings()">
+    <body onload="loadFeed()">
 
         <a href="http://gtgreekweek.com">
             <div id="backBar">
@@ -50,22 +48,15 @@
 
         <div class="container-fluid">
             <div class="row" cellpadding="0" cellspacing="0">
-                <div class="mainSheet" id="standings">
+                <div class="mainSheet">
                     <div class="mainStandingsHeader">
-                        2019 Standings
-                        <div class="mainStandingsSubtitle">
-                            <a href="/feed.html">Click here to see the results of recent events!</a>
+                        Recent Events
+                        <div class="mainStandingsSubtitle" id="eventsFeedSubtitle">
+                            Beta
                         </div>
                     </div>
-                    <div class="row" style="width:100%;" cellpadding="0" cellspacing="0">
-                        <div class="col-sm-6">
-                            <div class="standingsHeader sratHeader">Sororities</div>
-                            <div id="sororities"><div style="font-family:sans-serif; padding:40px;">Loading...</div></div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="standingsHeader fratHeader">Fraternities</div>
-                            <div id="fraternities"></div>
-                        </div>
+                    <div class=" eventsFeed" id="eventsFeed">
+                        <div class="col-md-auto" style="font-family:sans-serif; padding: 40px;">Loading...</div>
                     </div>
                 </div>
             </div>
