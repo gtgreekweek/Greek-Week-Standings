@@ -129,7 +129,7 @@ function loadEvent(name, callback) {
         var fraternities = results[2].val()
 
         var event = events[name]
-        event_data = {}
+        event_data = {has_placement : false}
 
         var scorers = {fraternities : {}, sororities : {}}
 
@@ -146,6 +146,9 @@ function loadEvent(name, callback) {
                 var type = parts[2]
                 if (type == "sororities") {
                     scores.points[key] = event[category][sorority_name]
+                    if (key != "Participation" && key != "Spectators") {
+                        event_data.has_placement = true;
+                    }
                 }
             }
 
@@ -168,6 +171,9 @@ function loadEvent(name, callback) {
                 var type = parts[2]
                 if (type == "fraternities") {
                     scores.points[key] = event[category][fraternity_name]
+                    if (key != "Participation" && key != "Spectators") {
+                        event_data.has_placement = true;
+                    }
                 }
             }
 
