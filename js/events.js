@@ -159,7 +159,7 @@ function generateLink(type, chapter_name, content) {
     return `<a class="aBlock" href="/chapter.html?${type == 'fraternities' ? 'f' : 's'}=${chapter_name}">${content}</a>`
 }
 
-function insertTopChapters(type, chapters, top_chapters) {
+function insertTopChapters(type, chapters, total_scores, top_chapters) {
     var new_chapters = {}
 
     for (top_chapter of top_chapters) {
@@ -170,14 +170,15 @@ function insertTopChapters(type, chapters, top_chapters) {
 
     var i = 0;
     for (var chapter_name in top_chapters) {
-        var chapter = top_chapters[chapter_name]
+        var chapter = chapters[chapter_name]
+        var score = total_scores[chapter_name]
 
-        if (chapter.total == 0) {
+        if (chapter == 0) {
             continue;
         }
 
         i++;
-        var row = `<tr class='contentRow ${(chapter.total == 0) ? "zeroPointItem" : "pointItem"}'>
+        var row = `<tr class='contentRow ${(chapter == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="rankingPosition" style="padding:0;padding-left: 15px;">
                             ${generateLink(type, chapter, `
                                 <table style="float:right">
@@ -195,7 +196,7 @@ function insertTopChapters(type, chapters, top_chapters) {
                         <td class="chapterPointValue">
                             ${generateLink(type, chapter, `
                                 <table style="float:right">
-                                    <tbody><tr><td><div class="chapterPoints"><b>${chapter.total}</b> ${(chapter.total == 1) ? "point" : "points"}</div></td></tr></tbody>
+                                    <tbody><tr><td><div class="chapterPoints"><b>${score}</b> ${(score == 1) ? "point" : "points"}</div></td></tr></tbody>
                                 </table>`
                             )}
                         </td>
@@ -284,19 +285,41 @@ function generateEventPage() {
             return;
         }
 
-        var topSororities = Object.keys(sororities).sort(function (a, b) {
-            return sororities[b].total - sororities[a].total
+        var frat_total_scores = {}, srat_total_scores = {};
+
+        Object.keys(fraternities).map(function(frat) {
+            var scores = fraternities[frat].points
+            var sum = 0
+            for (var i in scores) {
+                sum += scores[i]
+            }
+            if (sum > 0) {
+                frat_total_scores[frat] = sum
+            }
         })
 
-        var topFraternities = Object.keys(fraternities).sort(function (a, b) {
-            return fraternities[b].total - fraternities[a].total
+        Object.keys(sororities).map(function(srat) {
+            var scores = sororities[srat].points
+            sum = 0
+            for (i in scores) {
+                sum += scores[i]
+            }
+            srat_total_scores[srat] = sum
+        });
+
+        var top_sororities_arr = Object.keys(srat_total_scores).sort(function (a, b) {
+            return srat_total_scores[b] - srat_total_scores[a]
+        })
+
+        var top_fraternities_arr = Object.keys(frat_total_scores).sort(function (a, b) {
+            return frat_total_scores[b] - frat_total_scores[a]
         })
 
         var eventHasPlacement = true
 
         if (eventHasPlacement) {
-            insertTopChapters('fraternities', fraternities, topFraternities.splice(0, 5));
-            insertTopChapters('sororities', sororities, topSororities.splice(0, 3));
+            insertTopChapters('fraternities', fraternities, frat_total_scores, top_fraternities_arr.splice(0, 5));
+            insertTopChapters('sororities', sororities, srat_total_scores, top_sororities_arr.splice(0, 3));
         } else {
             $('#pageContent .row.topRankings').remove();
             $('#pointsAwardedHeader').remove();
