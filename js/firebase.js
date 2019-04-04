@@ -98,7 +98,6 @@ function loadChapter(name, classification, callback) {
             event_data = {}
 
             for (category in event) {
-                console.log(category)
                 var parts = category.split("_")
                 var key = parts[0]
                 var type = parts[2]
@@ -142,7 +141,6 @@ function loadEvent(name, callback) {
             }
 
             for (category in event) {
-                console.log(category)
                 var parts = category.split("_")
                 var key = parts[0]
                 var type = parts[2]
@@ -165,7 +163,6 @@ function loadEvent(name, callback) {
             }
 
             for (category in event) {
-                console.log(category)
                 var parts = category.split("_")
                 var key = parts[0]
                 var type = parts[2]

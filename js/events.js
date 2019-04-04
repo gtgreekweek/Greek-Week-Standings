@@ -210,7 +210,6 @@ function insertTopChapters(type, chapters, total_scores, top_chapters) {
 }
 
 function insertAllChapters(type, chapters) {
-    console.log(chapters)
     for (var chapter_name in chapters) {
         var chapter = chapters[chapter_name]
 
