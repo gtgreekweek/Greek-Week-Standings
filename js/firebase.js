@@ -97,21 +97,16 @@ function loadChapter(name, classification, callback) {
 
             event_data = {}
 
-            participation = classification == fraternity ? "Participation_points_fraternities" : "Participation_points_sororities"
-            placement = classification == fraternity ? "Placement_points_fraternities" : "Placement_points_sororities"
-            spectator = classification == fraternity ? "Spectators_points_fraternities" : "Spectators_points_sororities"
-
-            if (event[participation]) {
-                var points = event[participation][name]
-                event_data["participation"] = points
-            }
-            if (event[placement]) {
-                var points = event[placement][name]
-                event_data["placement"] = points
-            }
-            if (event[spectator]) {
-                var points = event[spectator][name]
-                event_data["spectator"] = points
+            for (category in event) {
+                console.log(category)
+                var parts = category.split("_")
+                var key = parts[0]
+                var type = parts[2]
+                if (classification == fraternity && type == "fraternities") {
+                    event_data[key] = event[category][name]
+                } else if (classification == sorority && type == "sororities") {
+                    event_data[key] = event[category][name]
+                }
             }
 
             results.scores[event_name] = event_data
@@ -121,6 +116,7 @@ function loadChapter(name, classification, callback) {
     })
 }
 
+// Loads a single event from firebase
 function loadEvent(name, callback) {
     var promises = [
         firebase.database().ref("events").once("value"),
@@ -145,21 +141,13 @@ function loadEvent(name, callback) {
                 points : {}
             }
 
-            if (participants = event["Participation_points_sororities"]) {
-                if ((score = participants[sorority_name]) > 0) {
-                    scores.points["participation"] = score
-                }
-            }
-
-            if (participants = event["Placement_points_sororities"]) {
-                if ((score = participants[sorority_name]) > 0) {
-                    scores.points["placement"] = score
-                }
-            }
-
-            if (participants = event["Spectators_points_sororities"]) {
-                if ((score = participants[sorority_name]) > 0) {
-                    scores.points["spectator"] = score
+            for (category in event) {
+                console.log(category)
+                var parts = category.split("_")
+                var key = parts[0]
+                var type = parts[2]
+                if (type == "sororities") {
+                    scores.points[key] = event[category][sorority_name]
                 }
             }
 
@@ -170,23 +158,19 @@ function loadEvent(name, callback) {
         }
 
         for (var fraternity_name in fraternities) {
-            var scores = {total : fraternities[fraternity_name].totalPoints, letters : fraternities[fraternity_name].letters, points : {}}
-
-            if (participants = event["Participation_points_fraternities"]) {
-                if ((score = participants[fraternity_name]) > 0) {
-                    scores.points["participation"] = score
-                }
+            var scores = {
+                total : fraternities[fraternity_name].totalPoints,
+                letters : fraternities[fraternity_name].letters,
+                points : {}
             }
 
-            if (participants = event["Placement_points_fraternities"]) {
-                if ((score = participants[fraternity_name]) > 0) {
-                    scores.points["placement"] = score
-                }
-            }
-
-            if (participants = event["Spectators_points_sororities"]) {
-                if ((score = participants[fraternity_name]) > 0) {
-                    scores.points["spectator"] = score
+            for (category in event) {
+                console.log(category)
+                var parts = category.split("_")
+                var key = parts[0]
+                var type = parts[2]
+                if (type == "fraternities") {
+                    scores.points[key] = event[category][fraternity_name]
                 }
             }
 

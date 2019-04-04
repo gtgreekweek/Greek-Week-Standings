@@ -180,28 +180,28 @@ function insertTopChapters(type, chapters, total_scores, top_chapters) {
         i++;
         var row = `<tr class='contentRow ${(chapter == 0) ? "zeroPointItem" : "pointItem"}'>
                         <td class="rankingPosition" style="padding:0;padding-left: 15px;">
-                            ${generateLink(type, chapter, `
+                            ${generateLink(type, chapter_name, `
                                 <table style="float:right">
                                     <tbody><tr><td><div class="rankingPosition" style="padding:0;"><b>#${i}</b></div></td></tr></tbody>
                                 </table>
                             `)}
                         </td>
                         <td class="chapterPointName">
-                            ${generateLink(type, chapter, `
+                            ${generateLink(type, chapter_name, `
                                 <table class="chapterNameTable">
                                     <tbody><tr><td><div class="chapterLetters">${chapter.letters}</div></td></tr><tr><td><div class="chapterName">${chapter_name}</div></td></tr></tbody>
                                 </table>`
                                 )}
                         </td>
                         <td class="chapterPointValue">
-                            ${generateLink(type, chapter, `
+                            ${generateLink(type, chapter_name, `
                                 <table style="float:right">
                                     <tbody><tr><td><div class="chapterPoints"><b>${score}</b> ${(score == 1) ? "point" : "points"}</div></td></tr></tbody>
                                 </table>`
                             )}
                         </td>
                         <td>
-                            ${generateLink(type, chapter, `<img class="disclosureIndicator" src="/images/Disclosure Indicator.png">`)}
+                            ${generateLink(type, chapter_name, `<img class="disclosureIndicator" src="/images/Disclosure Indicator.png">`)}
                         </td>
                    </tr>`;
 
