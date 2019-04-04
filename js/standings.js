@@ -10,11 +10,11 @@ function nameNoSpaces(name) {
 
 
 function loadStandings() {
-    loadChapters((fraternities, sororities) => {
+    loadChapters(function (fraternities, sororities) {
         renderListOfChaptersInDiv(fraternities, $("#fraternities"), fraternity)
-        renderListOfChaptersInDiv(sororities, $("#sororities"), fraternity)
+        renderListOfChaptersInDiv(sororities, $("#sororities"), sorority)
     })
-    loadMostRecentEvents((eventsToShow) => {
+    loadMostRecentEvents(function (eventsToShow) {
         renderEventsFeed(eventsToShow, $("#eventsFeed"))
     })
 }
@@ -28,7 +28,7 @@ function renderListOfChaptersInDiv(chapters, div, classification) {
     var renderedContent = "<table class='contentTable'>"
 
     for (var i = 0; i < chapters.length; i++) {
-        var href = `chapter.html?${classification == fraternity ? 'f' : 's'}=${nameNoSpaces(chapters[i].name)}`
+        var href = `chapter.html?${classification == fraternity ? 'f' : 's'}=${chapters[i].name}`
 
         renderedContent += `
             <tr class='contentRow'>
@@ -71,12 +71,10 @@ function renderEventsFeed(events, feed) {
 
     var recentFive = Object.keys(events).slice(0, 5);
 
-    console.log(recentFive);
-
     for (var i = 0; i < recentFive.length; i++) {
         var event = events[recentFive[i]];
 
-        var eventHasPlacement = event.topSororities.length > 0 || event.topFraternities.length > 0;
+        var eventHasPlacement = event.Placement_points_sororities || event.Placement_points_fraternities;
 
         var href = `event.html?e=${event.name}`
 
@@ -100,12 +98,12 @@ function renderEventsFeed(events, feed) {
 
         if (eventHasPlacement) {
             var topSororitiesString = "";
-            for (var j = 0; j < event.topSororities.length; j++) {
-                topSororitiesString += (j + 1) + ". " + event.topSororities[j].letters + "<br>";
+            for (var j = 0; j < event.Placement_points_sororities.length; j++) {
+                topSororitiesString += (j + 1) + ". " + event.Placement_points_sororities[j].letters + "<br>";
             }
             var topFraternitiesString = "";
-            for (var j = 0; j < event.topFraternities.length; j++) {
-                topFraternitiesString += (j + 1) + ". " + event.topFraternities[j].letters + "<br>";
+            for (var j = 0; j < event.Placement_points_fraternities.length; j++) {
+                topFraternitiesString += (j + 1) + ". " + event.Placement_points_fraternities[j].letters + "<br>";
             }
             renderedContent += `
                 <tr class='contentRow'>

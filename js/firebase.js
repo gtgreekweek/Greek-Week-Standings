@@ -10,7 +10,7 @@ firebase.initializeApp(config);
 
 
 function loadChapters(callback) {
-	var promises = [firebase.database().ref("fraternities").once("value"), 
+	var promises = [firebase.database().ref("fraternities").once("value"),
                     firebase.database().ref("sororities").once("value")]
     Promise.all(promises).then(results => {
         fraternityObject = results[0].val();
@@ -41,7 +41,7 @@ function loadChapters(callback) {
 }
 
 function loadMostRecentEvents(callback) {
-	var promises = [firebase.database().ref("events").once("value"), 
+	var promises = [firebase.database().ref("events").once("value"),
                     firebase.database().ref("calendar").once("value")]
     Promise.all(promises).then(results => {
     	eventsObject = results[0].val()
@@ -69,5 +69,44 @@ function loadMostRecentEvents(callback) {
             eventsToReturn.push(eventObject)
         }
     	callback(eventsToReturn)
+    })
+}
+
+// Load chapter from Firebase
+function loadChapter(name, classification, callback) {
+    firebase.database().ref("events").once("value").then(results => {
+        var events = results.val();
+
+        var results = {scores : {}, total_points : 0}
+
+        for (event_name in events) {
+            var event = events[event_name]
+
+            event_data = {}
+
+            participation = classification == "f" ? "Participation_points_fraternities" : "Participation_points_sororities"
+            placement = classification == "f" ? "Placement_points_fraternities" : "Placement_points_sororities"
+            spectator = classification == "f" ? "Spectators_points_fraternities" : "Spectators_points_sororities"
+
+            if (event[participation]) {
+                var points = event[participation][name];
+                event_data["participation"] = points
+                results.total_points += points
+            }
+            if (event[placement]) {
+                var points = event[placement][name];
+                event_data["placement"] = points
+                results.total_points += points
+            }
+            if (event[spectator]) {
+                var points = event[spectator][name];
+                event_data["spectator"] = points
+                results.total_points += points
+            }
+
+            results.scores[event_name] = event_data
+        }
+
+        callback(results);
     })
 }

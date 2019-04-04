@@ -6,18 +6,19 @@ var sorority = "srat"
 
 //uses Tabletop to load chapters from Google Sheets
 function getChapterArrays(completion) {
-    Tabletop.init(
-        {
-            key: dataDocument,
-            simpleSheet: false,
-            callback: function(data, tabletop) {
+    loadChapter(completion);
+    // Tabletop.init(
+    //     {
+    //         key: dataDocument,
+    //         simpleSheet: false,
+    //         callback: function(data, tabletop) {
 
-                fratData = decomposeTabletopIntoChapterArray(data, fraternity)
-                sratData = decomposeTabletopIntoChapterArray(data, sorority)
-                completion(fratData, sratData)
-            },
-        }
-    );
+    //             fratData = decomposeTabletopIntoChapterArray(data, fraternity)
+    //             sratData = decomposeTabletopIntoChapterArray(data, sorority)
+    //             completion(fratData, sratData)
+    //         },
+    //     }
+    // );
 }
 
 function decomposeTabletopIntoChapterArray(data, classification) {
